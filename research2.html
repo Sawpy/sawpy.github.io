@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarah Yip</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  
+  <script>
+  WebFont.load({
+    google: {
+      families: [
+        'Playfair Display:700',
+        'Raleway:300',
+        'Source Sans 3:700'
+      ]
+    },
+    timeout: 2000  // if fonts don’t load in 2s, fallback to system fonts
+  });
+</script>
+
+<script>
+  // NAVIGATION, SCROLLING, AND MOUSE TRACKING //  
+  
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.onbeforeunload = () => window.scrollTo(0, 0);
+
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', `${e.clientX}px`);
+      document.body.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0 });
+
+
+  </script>
+  
+  <script>
+  // once the DOM is ready, start observing each .section
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Click to Scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocItems = document.querySelectorAll('.toc li');
+    tocItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // 1) scroll to that ID
+        const id = item.dataset.target;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // 2) update the active highlight
+        document.querySelectorAll('.toc li.active')
+                .forEach(li => li.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Auto-Highlight
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const activeLi = document.querySelector(`.toc li[data-target="${id}"]`);
+          if (activeLi) {
+            document.querySelectorAll('.toc li.active')
+                    .forEach(li => li.classList.remove('active'));
+            activeLi.classList.add('active');
+          }
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+    // observe header and every section/details
+    document.querySelectorAll('header[id], section[id], details[id]')
+            .forEach(el => observer2.observe(el));
+  });
+</script>
+
+<script>
+// MAX HEIGHT
+document.querySelectorAll("details").forEach(detail => {
+  const content = detail.querySelector(".content");
+  content.style.overflow = "hidden";
+
+  detail.addEventListener("toggle", () => {
+    if (detail.open) {
+      // from 0 → full height
+      content.style.height = "0px";
+      const full = content.scrollHeight + "px";
+
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = full;
+      });
+
+      content.addEventListener("transitionend", function done() {
+        content.style.height = "auto";
+        content.style.transition = "";
+        content.removeEventListener("transitionend", done);
+      });
+    } else {
+      // from full → 0
+      content.style.height = content.scrollHeight + "px";
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = "0px";
+      });
+    }
+  });
+});
+</script>
+
+
+  
+  <style>
+    :root {
+      --bg: #5E505F;
+      --header: #e4cfe0;
+	  --h1: #e4cfe0;
+	  --h2: #e4cfe0;
+      --body: #C6B8DB;
+      --button: #574458;
+      --accent1: #B9ABCF;
+      --accent2: #e4cfe0;
+      --white: #E0D1CC;
+      --linkedin: #977a8e;
+      --linkedin-hover: #e4cfe0;
+	  --link-bg: #977a8e;
+      --link-hover-bg: #e4cfe0;
+      --button: #574458;
+      --transition-fast: 0.3s ease;
+      --transition-medium: 0.6s ease;
+      --nav-height: 80px;
+	  
+    }
+	
+	
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Raleway', sans-serif;
+      color: var(--body);
+      line-height: 1.3;
+      overflow-x: hidden;
+      padding-top: 1vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,0.04), transparent 255px);
+      z-index: 1;
+    }
+	
+	/* HEADER STYLES */
+	h1 {
+	font-family: 'Playfair Display', serif;
+	font-size: 3rem;
+	color: var(--h1);
+	margin-bottom: 0.3rem;
+	}
+	
+	h2 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.85rem;
+	color: var(--h2);
+	margin-bottom: 0.3rem;
+	}
+	
+	h3 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+	
+	h4 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+	
+	h5 {
+	font-family: 'Raleway', serif;
+	font-size: 0.9rem;
+	color: body;
+	margin-bottom: 1rem;
+	}
+
+	
+	/* NAVIGATION */
+	
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 2rem 1.25rem 1rem;
+      position: fixed; width: 100%; top: 0; left: 0;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(20px);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--header);
+      margin: 0 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+    .logo::after {
+      content: ' ✿'; opacity: 0; margin-left: 0.3rem;
+    }
+    .logo:hover { color: var(--accent1); transform: scale(1.08); margin-right: 2rem; }
+    .logo:hover::after { opacity: 1;}
+	
+    .nav-links a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: var(--body);
+      font-size: 1rem;
+      display: inline-block;
+    }
+    .nav-links a:hover { color: var(--accent2); transform: scale(1.08); }
+	
+	/*HERO TITLE*/
+    header {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem;
+      padding: 1vh 1vw 1vh;
+      min-height: 1vh;
+      text-align: left;
+    }
+	
+
+header.article-header {
+  /* keep flex container but stack children top→bottom */
+  display: flex;
+  flex-direction: column;
+
+  /* left-align title & byline */
+  align-items: flex-start;
+  text-align: left;
+
+  padding-top: 1vh;
+  padding-bottom: 2rem;
+}
+
+	
+	
+	*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; transition: all var(--transition-medium); }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--body); font-family: 'Raleway', sans-serif; line-height: 1.6; overflow-x: hidden; padding-top: var(--nav-height); max-width: 1000px; margin: 0 auto; }
+    
+	/* Offset anchors */
+    section[id], details[id] { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--header); margin-bottom: 1rem; }
+    .article-header .byline { font-family: 'Raleway', sans-serif; font-size: 1rem; color: var(--body); margin-bottom: 2rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    
+    .container { display: flex; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+	aside.toc { flex: 0 0 200px; position: sticky; top: calc(var(--nav-height) + 1rem); align-self: flex-start; margin-right: 2rem; }
+    .toc ul { list-style: none; }
+    .toc li { padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer; transition: all var(--transition-fast); }
+    .toc li:hover { transform: scale(1.05); color: var(--accent2); }
+    .toc li.active { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); }
+    .toc li.active:hover { background: #977a8e; }
+    
+	@media (max-width: 768px) { .container { flex-direction: column; } aside.toc { display: none; } }
+	.article-header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--header); margin-bottom: 1rem; }
+    .section { margin-bottom: 2rem; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-medium), transform var(--transition-medium); }
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .abstract { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); border-radius: 15px; padding: 1.5rem; transition: background var(--transition-fast); }
+    .abstract:hover { background: rgba(255,255,255,0.12); }
+	#abstract {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  
+  /*BODY TEXT*/
+    details.section { margin-bottom: 2rem; }
+    details .content { 
+	max-height: none; 
+	overflow: hidden; 
+	transition: max-height 0.5s ease-in-out,
+    padding     0.5s ease-in-out; 
+	}
+	
+    details:not([open]) .content { max-height: 0;}
+	details[open] .content {
+	max-height: none;
+	padding: 1rem;
+	}
+	
+	
+    details>summary { cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    details>summary:hover { color: var(--accent1); }
+    
+	/*FIGURES*/
+	.figure { display: grid;
+	grid-template-columns: 35% 65%;
+	column-gap: 1rem;        /* space between text & image */
+	margin: 2rem 0;
+	align-items: start;
+	}
+
+    .fig-img {text-align: right;}
+	
+    .figure img {
+	max-width: 100%;
+	display: block;
+	background-color: #fff;
+	border: 12px solid #fff;
+	border-radius: 9px;
+
+}
+
+ul {
+  padding-left: 4rem;
+}
+
+
+/* FIGURE DESCRIPTION */
+.fig-desc p {
+  font-size: 0.805rem;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+
+/*FIGURE WRAP*/
+.img-wrap {
+  display: inline-block;
+  width: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 3px;                 /* frame thickness */
+  overflow: hidden;
+  
+  display: flex;
+  justify-self: center;
+}
+
+.img-wrap img {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  transition: transform 0.5s ease;
+  transform-origin: center center;
+}
+
+.img-wrap:hover img {
+  transform: scale(1.05);
+}
+
+
+
+    
+	
+	/* REFERENCES */
+	.references { background: rgba(255,255,255,0.07); 
+	backdrop-filter: blur(20px); 
+	border-radius: 12px; 
+	padding: 3rem; 
+	height: 500px; 
+	overflow-y: auto;
+	overflow-x: hidden;	
+	position: relative; 
+	transition: max-height var(--transition-medium), 
+	background var(--transition-fast); }
+    .references:hover { background: rgba(255,255,255,0.12); 
+	}
+	
+	.section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* CUSTOM SCROLLBAR */
+/* WebKit browsers */
+.references::-webkit-scrollbar {
+  width: 8px;
+}
+.references::-webkit-scrollbar-track {
+  background: transparent;
+}
+.references::-webkit-scrollbar-thumb {
+  background-color: var(--accent1);
+  border-radius: 4px;
+}
+
+/* Firefox */
+.references {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent1) transparent;
+}
+
+hr.divider {
+  border: none;
+  height: 1px;
+  background-color: var(--header);
+  opacity: 0.3;
+  margin: 2rem 0;
+}
+	
+	
+
+    footer { text-align: center; padding: 4rem 2rem 6rem; }
+	
+	
+	/*SOCIAL MEDIA AND SCROLL BUTTON */
+	
+    .linkedin-icon { display: inline-block; width: 44px; height: 44px; background-color: var(--linkedin); border-radius: 10px; position: relative; text-indent: -9999px; }
+    .linkedin-icon::before { content: "in"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Source Sans 3',sans-serif; font-weight:700; font-size:22px; color:var(--bg); text-indent:0; }
+    .linkedin-icon:hover { background-color: var(--linkedin-hover); }
+    .scroll-top-btn { position: fixed; bottom: 2rem; right: 2rem; width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: var(--body); font-size:1.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; z-index:9999; }
+    .scroll-top-btn:hover { background-color:#977a8e; }
+    
+	
+	
+	@media (max-width: 768px) {
+      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:4vh 5vw 2vh; text-align:left; align-items:flex-start; font-size: 2rem }
+
+      .nav-links { margin-left:auto; }
+      .nav-links a { margin-right:1rem; }
+      .scroll-top-btn { bottom:1rem; right:1rem; }
+	  
+	  .figure {
+	  display: grid;
+	  grid-template-columns: 1fr;  /* 1 column only */
+	  row-gap: 1rem;               /* space between desc + image */
+	  }
+	  
+	  .figure .fig-desc,
+	  .figure .fig-img {
+	  max-width: 100%;             /* full width */
+	  text-align: left;
+  }
+    }
+    @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeInUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    @keyframes fadeInBox { to { opacity:1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(1turn); } }
+	
+
+  
+
+	
+  </style>
+  
+  
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Sarah</a>
+    <div class="nav-links">
+      <a href="index.html#research">Research</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+
+	<div class="container">
+    <aside class="toc">
+      <ul>
+        <li data-target="top" class="active">Title</li>
+        <li data-target="abstract">Abstract</li>
+        <li data-target="introduction">Introduction</li>
+
+        <li data-target="methodology">Methodology</li>
+        <li data-target="results">Results</li>
+        <li data-target="discussion">Discussion</li>
+        <li data-target="conclusion">Conclusion</li>
+        <li data-target="references">References</li>
+      </ul>
+    </aside>
+    <main class="article">
+      <section id="top"></section>
+      <header id="top" class="article-header">
+        <h1>Unveiling Female ADHD: Early Mental Health Challenges and Diagnosis Delays in University Students</h1>
+        <p class="byline">Sarah Yip | August 3, 2024</p>
+      </header>
+      <!-- ABSTRACT -->
+      <section id="abstract" class="section">
+        <h2 class="section-title">Abstract</h2>
+        <div class="abstract">
+<p>Millions of people in the United States live with a diagnosis of attention-deficit hyperactivity disorder (ADHD). As a neurodevelopmental disorder, people with ADHD experience symptoms like inattention, hyperactivity, and impulsivity which can lead to long-term adverse outcomes in health, education, and social functioning.</p>
+<p>&nbsp;</p>
+<p>This report aims to address the research gap in adult ADHD, by conducting data analysis from first-year students at the University of Cape Town with a dataset of over 500 participants with 81% of participants identifying as the female sex. The analysis focuses on common comorbid mental health conditions, the age of onset, and formal diagnosis of these conditions among students with ADHD.</p>
+<p>&nbsp;</p>
+<p>Results indicate that the majority of students with ADHD experienced mental health difficulties before university, with the most common conditions as depression and anxiety. Despite early onset, formal diagnoses often occurred several years later, suggesting a significant gap between symptom onset and diagnosis.</p>
+		
+		</div>
+      </section>
+      <!-- INTRODUCTION -->
+      <details id="introduction" class="section" open>
+        <summary>Introduction</summary>
+        <div class="content">
+          
+<p>In 2022, between 6.5 to 7.1 million children and adolescents in the United States received a diagnosis of attention-deficit hyperactivity disorder, or ADHD.[1] As a neurodevelopmental disorder, ADHD affects the ability to sustain attention, regulate motor and impulse behavior, and can lead to behavioral disturbances. Like the name, the core symptoms of ADHD include inattention, hyperactivity, and impulsivity.[2] &ldquo;ADHD typically develops in childhood&rdquo; and often leads to &ldquo;poor long-term outcomes if untreated.&rdquo;[3]</p>
+<p>&nbsp;</p>
+<p>Compared to peers without ADHD, the likelihood increases for individuals with ADHD to &ldquo;experience poor health outcomes like obesity, chronic illness, and accidental injury.&rdquo;[1] Outside of health, individuals with ADHD can also experience &ldquo;poor educational and professional attainment, social dysfunction, and lower economic status.&rdquo;[3] While &ldquo;ADHD symptoms may become less apparent as people get old,&rdquo; adults with ADHD can still experience &ldquo;disorganization, impulsive-decision-making, internal restlessness, wandering attention, and procrastination.&rdquo;[2]</p>
+<p>&nbsp;</p>
+
+		  
+		  
+		  </div>
+      </details>
+
+      <hr class="divider" />
+      <!-- METHODOLOGY -->
+      <details id="methodology" class="section" open>
+        <summary>Methodology</summary>
+        <div class="content">
+        
+<p>With the &ldquo;functional dysregulation&rdquo; that &ldquo;can persist across&rdquo; lifespans, &ldquo;ADHD should be viewed as a chronic condition for many individuals.&rdquo;[4] &ldquo;Even in cases where people previously diagnosed with ADHD no longer meet the diagnostic criteria for the condition,&rdquo; research findings show &ldquo;brain structural differences in ADHD that persist into adulthood.&rdquo; However, adult ADHD lacks research with &ldquo;few clinical (including human case reports) and preclinical (animal)&rdquo;[2] existing data. ADHD research also tends to underrepresent the female gender.[5] To contribute to ADHD research, this report aims to conduct data analysis using the University of Cape Town&rsquo;s dataset of first-year students with ADHD.[6] The dataset received data from a majority of female first-year undergraduate students compared to male students and other genders.</p>
+<p>&nbsp;</p>
+<p>In this report, the data analysis seeks to answer several questions:</p>
+<p>&nbsp;</p>
+<ul>
+<li>What are common comorbid mental health conditions for individuals with ADHD?</li>
+<li>What is the average age of onset that individuals with ADHD experienced a comorbid mental health condition?</li>
+<li>What is the average age of formal diagnosis of a comorbid mental health condition for individuals with ADHD?</li>
+</ul>
+<p>&nbsp;</p>
+
+<p>To answer the research questions, the data analysis used several statistical methods:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Data cleaning.</li>
+<li>Descriptive statistics.</li>
+<li>Text categorization.</li>
+<li>Data visualization.</li>
+<li>Categorical data analysis.</li>
+<li>Summary statistics.</li>
+<li>Density estimation.</li>
+<li>Data grouping and aggregation.</li>
+</ul>
+<p>&nbsp;</p>
+<p>These methods focus on exploratory data analysis (EDA). The data analysis will use Python programming language on the free hosted Jupyter Notebook service named Google Colaboratory (Colab).</p>
+<p>&nbsp;</p>
+<p>In Colab, there will be several steps. First, preprocess the dataset by loading and cleaning the data. Second, count occurrences of different responses in categorical data and write custom functions to categorize free-text responses into predefined categories based on keywords. Third, perform calculations like mean, standard deviation, and percentages. Fourth, group and reshape data for better visualization. Lastly, visualize the data and discuss the findings.</p>
+<p>&nbsp;</p>		
+		
+		
+      </details>
+	  <hr class="divider" />
+	  
+	  
+      <!-- RESULTS -->
+      <details id="results" class="section" open>
+        <summary>Results</summary>
+
+<p>In this data analysis, the results showed that the majority (64.6%) of university students with ADHD experienced mental health difficulties before university and 41.5% of students received a formal diagnosis by a doctor or mental health professional. Among students with ADHD formally diagnosed with any mental illnesses, the overwhelming majority (93.6%) received their diagnoses before high school.</p>
+<p>&nbsp;</p>
+<p>For students with both ADHD and any mental health difficulties, the onset of symptoms occurred in 8.6% of individuals by age 6, 30.3% by age 12, 55.6% by age 14, and 87.9% by age 16. The age of first formal diagnosis of mental illness occurred in 3% of individuals by age 6, 12.6% by age 12, 23.9% by age 14, and 58.8% by age 16.</p>
+<p>&nbsp;</p>
+<p>In students with ADHD, the most common mental health conditions include depression (36.7%) and anxiety (30.8%). Other mental health conditions on the dataset had less statistical significance, like bipolar disorder at 0.2% and obsessive-compulsive disorder (OCD) at 0.2%. A small portion of students with ADHD (11.1%) had severe mental health symptoms like sleep difficulties (3.3%), self-harm (2.8%), trauma (2.6%), eating disorders (1.9%), and body dysmorphia (0.5%).</p>
+<p>&nbsp;</p>
+
+<h3> Figures </h3>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 1. </h5>
+    <p>A pie chart showing that most students with ADHD experienced mental health difficulties before university.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (1).png"
+         alt="Students with ADHD: Did you experience mental health difficulties before university?">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 2.  </h5>
+    <p>Despite majority of students with ADHD experiencing mental health difficul-ties before university, less than half are formally diagnosed with a mental illness as shown in this pie chart.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (2).png"
+         alt="ADHD: Have you ever been formally diagnosed with a mental illness?">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 3. </h5>
+    <p>For students with ADHD who are formally diagnosed with any mental illness, this pie chart shows that an overwhelming majority received their diagnoses before high school.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (3).png"
+         alt="People with ADHD: Age When Mental Health Difficulties Started">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 4. </h5>
+    <p>In this histogram, the age when mental health difficulties started by or before age 18, with nearly a third by age 12, over half by age 14, and an overwhelming majority by age 16.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (4).png"
+         alt="People with ADHD: Age of First Formal Diagnosis of Mental Illness">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 5. </h5>
+    <p>For students with ADHD, the age of their first formal diagnosis of mental illness occurred later than their onset of mental health difficulties. Less than a third of students received a formal diagnosis by age 14 and the overwhelming majority received a formal diagnosis by age 16 and later.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (5).png"
+         alt="ADHD Students: Common Mental Health Conditions">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 6. </h5>
+    <p>Common mental health conditions among students with ADHD include depression and anxiety, which affect over two-thirds of students in this dataset.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (6).png"
+         alt="ADHD Students: Common Mental Health Conditions">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 7. </h5>
+    <p>About 1 in 10 students with ADHD experience severe mental health symp-toms like sleep difficulties, self-harm, trauma, eating disorders, and body dysmor-phia.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (7).png"
+         alt="ADHD Students: Severe Mental Health Symptoms">
+  </div>
+</figure>
+</div>
+
+
+
+<h3> Demographics </h3>
+
+<p>This dataset includes data from first-year undergraduate students with ADHD at the University of Cape Town in South Africa. Most of the data was from female students (81.42%) with a minority of data from male students (16.40%) and other sexes (2.17%). The &ldquo;other&rdquo; category includes 11 students who identify as agender (9%), gender fluid (18.2%), non-binary (63.6%), and transgender (9%).</p>
+<p>&nbsp;</p>
+<p>In this dataset, the ages range from 18 to 22. For female students with ADHD, 70.63% were age 18, 24.03% age 19, 4.37% age 20, 0.49% age 21, and 0.49% age 22. For male students with ADHD, 50.6% were age 18, 31.33% age 19, 10.84% age 20, 4.82% age 21, and 2.41% age 22. For the 11 other students with ADHD, 63.64% were 18 years of age and 36.36% were 19 years of age.</p>
+<p>&nbsp;</p>
+
+
+
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 8.</h5>
+    <p>In this dataset, the sex distribution of ADHD first-year undergraduate stu-dents was an overwhelming majority of the female sex and a minority of the male sex and others.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (8).png"
+         alt="Dataset Percentage Distribution by Sex">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 9.</h5>
+    <p>In this dataset, the age distribution of ADHD first-year undergraduate students was an overwhelming majority of students who are age 18, with about a quarter age 19, and few who were ages 20, 21, and 22.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/2_fig (9).png"
+         alt="Students with ADHD: Did you experience mental health difficulties before university?">
+  </div>
+</figure>
+</div>
+		
+		
+		
+      </details>
+	  
+	  
+      <!-- DISCUSSION -->
+      <details id="discussion" class="section" open>
+        <summary>Discussion</summary>
+        <div class="content">
+          
+<p>In this report, exploratory data analysis revealed several aspects of the relationships between mental health conditions and a diagnosis of ADHD in university students. Most students with ADHD experience mental health difficulties before university and over a third even before reaching their teenage years. Among the students with ADHD and mental health difficulties, the most common mental health conditions include depression and anxiety.</p>
+<p>&nbsp;</p>
+<p><strong>5.1 Formal Diagnosis of Mental Health Conditions</strong></p>
+<p>To receive a diagnosis for mental health conditions, people can use both formal and informal assessments. In both formal and informal assessments, they share similar overall goals but differ in the use, manner, and type of information collected. Formal assessments use &ldquo;standardized, norm-referenced tests, whereas in informal assessment, information is based on careful observation of behaviors by the examiner.&rdquo;[7] Despite most students with ADHD experiencing mental health symptoms and difficulties before university, less than half of the students in this dataset received a formal or informal diagnosis of any mental health conditions by age 18. This suggests that possibly nearly a quarter of people over age 18 with both ADHD and mental health conditions like depression and anxiety lack a formal diagnosis for their mental health conditions.</p>
+<p>&nbsp;</p>
+<p><strong>5.2 Gap Between Onset of Symptoms to Formal Diagnosis</strong></p>
+<p>In the United States, it can take 11 years on average for someone to receive a condition diagnosis.[8] In this analysis, over half of students with ADHD who are currently formally diagnosed with mental health conditions experienced mental health difficulties by age 14, with over a third by age 12, but less than a third received a formal diagnosis for any mental health conditions at age 14. However, over half of the formally diagnosed students received a formal diagnosis by age 16. This suggests that for many students with ADHD, getting a formal diagnosis for mental health conditions can occur a few to several years later than the onset of symptoms and difficulties.</p>
+<p>&nbsp;</p>
+<p><strong>5.3 Common Mental Health Conditions of People with ADHD </strong></p>
+<p>In this analysis, about two-thirds of students with ADHD experienced depression and anxiety, with 97.5% of those students receiving a formal diagnosis by age 18, and 2.5% afterward. In comparison, 22.8% of adults aged 18 and older in the United States live with a mental illness [8]. This suggests that people diagnosed with ADHD are possibly two to three times more likely to experience mental health difficulties than the general population.</p>
+<p>&nbsp;</p>
+		 
+		 
+		</div>
+      </details>
+      <hr class="divider" />
+	  
+	  
+      <!-- CONCLUSION -->
+      <details id="conclusion" class="section" open>
+        <summary>Conclusion</summary>
+        <div class="content">
+        
+<p>This report shows the prevalence and impact of comorbid mental health conditions among university students with ADHD, especially students who identify as female, revealing that a significant portion of these individuals experience symptoms years before receiving a formal diagnosis. The most common mental health conditions of students with ADHD are depression and anxiety, with most diagnoses occurring during the teenage years.</p>
+<p>&nbsp;</p>
+<p>The findings also suggest that individuals with ADHD experience mental health difficulties at a higher likelihood compared to the general population. In the future, the expansion of this project can include conducting data analysis on an ADHD dataset with a larger sample size. All in all, these findings emphasize the need for earlier detection, intervention, and comprehensive support for individuals with ADHD, especially women and girls, to mitigate long-term adverse outcomes.</p>
+
+		
+		</div>
+      </details>
+	  
+	  
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <h2 class="section-title">References</h2>
+        <div class="references" id="refs-container">
+          <ol id="refs-list">
+
+<ol>
+	<li>Danielson ML, Claussen AH, Bitsko RH, Katz SM, Newsome K, Blumberg SJ, Kogan MD, Ghandour R (2024) ADHD prevalence among U.S. children and adolescents in 2022: Diagnosis, severity, co-occurring disorders, and treatment. Journal of Clinical Child &amp;amp; Adolescent Psychology 53:343–360</li>
+	<li>Custodio RJ, Hengstler JG, Cheong JH, Kim HJ, Wascher E, Getzmann S (2023) Adult ADHD: It is old and new at the same time – what is it? Reviews in the Neurosciences 35:225–241</li>
+	<li>Adamo N, Singh SP, Bölte S, et al (2024) Practitioner review: Continuity of mental health care from childhood to adulthood for youths with ADHD – who, how and when? Journal of Child Psychology and Psychiatry. doi: 10.1111/jcpp.14036</li>
+	<li>Rivas-Vazquez RA, Diaz SG, Visser MM, Rivas-Vazquez AA (2023) Adult ADHD: Underdiagnosis of a treatable condition. Journal of Health Service Psychology 49:11–19</li>
+	<li>Attoe DE, Climie EA (2023) Miss.. diagnosis: A systematic review of ADHD in adult women. Journal of Attention Disorders 27:645–657 </li>
+	<li>Rousseau K, Mohamad N, Dowlut F, Gering M, Thomas K (2024) ADHD and Common Mental Disorders: Effect on Academic Success in SA First-Years. https://doi.org/10.25375/uct.24906924.v1</li>
+	<li>First MB, Spencer E, Spencer E, et al (2013) Informal Assessment 1608–1613</li>
+	<li>Davis L (2023) Mental Health Statistics. In: EverydayHealth.com. https://www.everydayhealth.com/emotional-health/mental-health-statistics/. Accessed 3 Aug 2024</li>
+</ol>
+
+
+
+
+          
+          </ol>
+        </div>
+		
+      </section>
+    </main>
+  </div>
+
+
+
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/sawpy/" class="linkedin-icon" target="_blank">LinkedIn</a>
+    </div>
+    <a href="#top" class="scroll-top-btn" onclick="scrollToTop(event)">&#9650;</a>
+  </footer>
+
+
+
+  
+
+
+
+</body>
+</html>

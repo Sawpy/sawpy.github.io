@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarah Yip</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  
+  <script>
+  WebFont.load({
+    google: {
+      families: [
+        'Playfair Display:700',
+        'Raleway:300',
+        'Source Sans 3:700'
+      ]
+    },
+    timeout: 2000  // if fonts don’t load in 2s, fallback to system fonts
+  });
+</script>
+  
+  <style>
+    :root {
+      --bg: #5E505F;
+      --header: #e4cfe0;
+	  --h1: #e4cfe0;
+	  --h2: #e4cfe0;
+      --body: #C6B8DB;
+      --button: #574458;
+      --accent1: #B9ABCF;
+      --accent2: #e4cfe0;
+      --white: #E0D1CC;
+      --linkedin: #977a8e;
+      --linkedin-hover: #e4cfe0;
+	  --sparkle-color: #eaa5a8;
+	  
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Raleway', sans-serif;
+      color: var(--body);
+      line-height: 1.3;
+      overflow-x: hidden;
+      padding-top: 80px;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,0.04), transparent 255px);
+      z-index: 1;
+    }
+	
+	/* HEADER STYLES */
+	h1 {
+	font-family: 'Playfair Display', serif;
+	font-size: 3rem;
+	color: var(--h1);
+	margin-bottom: 0.3rem;
+	}
+	
+	h2 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.85rem;
+	color: var(--h2);
+	margin-bottom: 0.3rem;
+	}
+	
+	h3 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+
+	
+	/* NAVIGATION */
+	
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 2rem 1.25rem 1rem;
+      position: fixed; width: 100%; top: 0; left: 0;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(20px);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--header);
+      margin: 0 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+    .logo::after {
+      content: ' ✿'; opacity: 0; margin-left: 0.3rem;
+    }
+    .logo:hover { color: var(--accent1); transform: scale(1.08); margin-right: 2rem; }
+    .logo:hover::after { opacity: 1;}
+	
+    .nav-links a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: var(--body);
+      font-size: 1rem;
+      display: inline-block;
+    }
+    .nav-links a:hover { color: var(--accent2); transform: scale(1.08); }
+    header {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem;
+      padding: 2vh 5vw 1vh;
+      min-height: 88vh;
+      text-align: left;
+    }
+	
+	/*INTRODUCTION*/
+    .intro-text { max-width: 600px; text-align: left; }
+    .intro-line {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--header);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInLeft 0.5s ease-out forwards;
+    }
+    .intro-line:hover { transform: scale(1.05); color: var(--accent1); }
+    .description {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+    .description:hover { transform: scale(1.04); color: var(--accent2); }
+	
+	/*PROFILE IMAGE*/
+	.profile-img {
+	border: 15px solid var(--white);
+  border-bottom: 72px solid var(--white);
+  border-radius: 3px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 9px 12px rgba(88, 68, 89, 0.8);
+      width: 360px; height: auto;
+      opacity: 0;
+      animation: fadeIn 0.4s ease-out forwards;
+
+      filter: brightness(1);
+      position: relative;
+    }
+	
+	.profile-img::before {
+
+  content: '';
+  position: absolute;
+  top: -12px; left: -12px;   /* frame thickness */
+  right: -12px; bottom: -12px;
+  border-radius: inherit;
+  
+  pointer-events: none;      /* let clicks pass through */
+  z-index: -1;               /* behind the image */
+}
+	
+    .profile-img:hover { transform: scale(1.06) rotate(3deg); filter: brightness(1.1); }
+
+    .profile-img:hover::before { opacity: 0.4; }
+    .section { padding: 4vh 6vw 6vh; }
+
+
+
+
+
+/* PROFILE SPARKLES */
+
+.profile-img-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .profile-img-wrapper .profile-img {
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .profile-img-wrapper .star-1,
+    .profile-img-wrapper .star-2,
+    .profile-img-wrapper .star-3,
+    .profile-img-wrapper .star-4,
+    .profile-img-wrapper .star-5,
+    .profile-img-wrapper .star-6 {
+      position: absolute;
+      width: auto;
+      height: auto;
+      filter: drop-shadow(0 0 0 var(--sparkle-color));
+      z-index: -5;
+      transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+    }
+    .profile-img-wrapper .star-1 { top: 20%; left: 20%; width: 33px; transition-timing-function: cubic-bezier(0.05, 0.83, 0.43, 0.96); }
+    .profile-img-wrapper .star-2 { top: 45%; left: 45%; width: 25px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+    .profile-img-wrapper .star-3 { top: 40%; left: 40%; width: 11px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
+    .profile-img-wrapper .star-4 { top: 20%; left: 40%; width: 17px; transition: all .8s cubic-bezier(0, 0.4, 0, 1.01); }
+    .profile-img-wrapper .star-5 { top: 25%; left: 45%; width: 22px; transition: all .6s cubic-bezier(0, 0.4, 0, 1.01); }
+    .profile-img-wrapper .star-6 { top: 5%; left: 50%; width: 14px; transition: all .8s ease; }
+
+    .profile-img-wrapper:hover .star-1 { top: -65%; left: -50%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+    .profile-img-wrapper:hover .star-2 { top: -50%; left: -5%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+    .profile-img-wrapper:hover .star-3 { top: 90%; left: -20%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+    .profile-img-wrapper:hover .star-4 { top: 80%; left: 107%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+    .profile-img-wrapper:hover .star-5 { top: 25%; left: 123%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+    .profile-img-wrapper:hover .star-6 { top: -20%; left: 80%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+
+    .profile-img-wrapper .fil0 { fill: var(--sparkle-color); }
+
+
+    /* 	RESEARCH BOXES */
+    .research-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 2rem auto;
+      width: 90%; max-width: 1000px;
+      background-color: rgba(255,255,255,0.07);
+      padding: 1.3rem;
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      opacity: 0; transform: translateY(40px);
+    }
+    .research-text { flex: 0 0 67%; padding: 1rem; }
+    .research-image { flex: 0 0 33%; display: flex; justify-content: center; padding: 1rem;}
+    .research-image img {
+      width: 100%; height: auto; border-radius: 20px;
+    }
+    .research-item.visible { animation: fadeInBox 0.6s ease-out forwards; }
+    .research-text h2,
+    .research-image img,
+    .research-text p,
+    .research-text a { opacity: 0; transform: translateY(20px); }
+    .visible .research-text h2 { animation: fadeInUp 0.4s ease-out 0.2s forwards; color: var(--h2); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
+    .visible .research-image img { animation: fadeInUp 0.4s ease-out 0.4s forwards; }
+    .visible .research-text p { animation: fadeInUp 0.4s ease-out 0.6s forwards; }
+    .visible .research-text a { animation: fadeInUp 0.4s ease-out 0.8s forwards; }
+    .research-text p { color: var(--body); margin-bottom: 1rem; font-family: 'Raleway', sans-serif; }
+    .research-item:hover { background-color: rgba(255,255,255,0.12); }
+	
+	
+/* Polaroid Research Boxes */
+.research-image figure {
+  --c: 50px;   /* corner‐cut size */
+  --p: 30px;   /* padding (border thickness) */
+  --d: 10px;   /* drop‐shadow size */
+  display: inline-block;
+  padding: var(--p);
+  background:
+    /* top‐left and bottom‐right corner accents */
+    radial-gradient(farthest-side at 0 0, #584459, transparent) 0 0 / var(--c) var(--c),
+    radial-gradient(farthest-side at 100% 100%, #584459, transparent) 100% 100% / var(--c) var(--c),
+    /* main “photo” area in border color */
+    linear-gradient(#fff 0 0) 50% 50% / calc(100% - var(--p)) calc(100% - var(--p)),
+    /* inner shadows top/bottom in  shadow color */
+    linear-gradient(
+      #0000,
+      #584459 25%,
+      #584459 75%,
+      #0000
+    ) 50% 50% / calc(100% - var(--p)) calc(100% - var(--d)),
+    /* inner shadows left/right */
+    linear-gradient(
+      90deg,
+      #0000,
+      #584459 25%,
+      #584459 75%,
+      #0000
+    ) 50% 50% / calc(100% - var(--d)) calc(100% - var(--p)),
+    /* little drop‐shadow flecks in shadow color at low opacity */
+    radial-gradient(
+      farthest-side at 0 100%,
+      #58445929,
+      transparent
+    ) calc(100% - var(--d)*0.5) calc(var(--d)*0.5) / var(--d) var(--d),
+    radial-gradient(
+      farthest-side at 100% 0,
+      #58445929,
+      transparent
+    ) calc(var(--d)*0.5) calc(100% - var(--d)*0.5) / var(--d) var(--d);
+  background-repeat: no-repeat;
+  clip-path: polygon(
+    0 var(--c),
+    var(--c) 0,
+    100% 0,
+    100% calc(100% - var(--c)),
+    calc(100% - var(--c)) 100%,
+    0 100%
+  );
+}
+
+.research-image figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+
+
+.research-image figure {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 
+    opacity 0.8s ease-out, 
+    transform 0.8s ease-out;
+}
+
+/* when in-view, slide up and fade in */
+.research-image figure.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ——— FIREFLIES ——— */
+:root {
+  --firefly-quantity: 12;
+}
+
+.firefly {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 0.4vw;
+  height: 0.4vw;
+  margin: -0.2vw 0 0 9.8vw;
+  animation: ease 200s alternate infinite;
+  pointer-events: none;
+  z-index: 2; /* above your backdrop */
+}
+
+.firefly::before,
+.firefly::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform-origin: -10vw;
+}
+
+.firefly::before {
+display: none;
+  background: #eaa5a8;
+  opacity: 0 !important;
+  animation: drift ease alternate infinite;
+}
+
+.firefly::after {
+  background: #eaa5a8;
+  opacity: 0;
+  box-shadow: 0 0 0vw 0vw #e6d1d0;
+  animation: drift ease alternate infinite,
+             flash ease infinite;
+}
+
+/* random motion & timing */
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes flash {
+  0%, 30%, 100% {
+    opacity: 0;
+    box-shadow: 0 0 0vw 0vw #e6d1d0;
+  }
+  5% {
+    opacity: 1;
+    box-shadow: 0 0 2vw 0.4vw #e6d1d0;
+  }
+}
+
+	
+	
+    a.button { display: inline-block; background-color: var(--button); color: var(--body); padding: 0.6rem 1.2rem; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 1rem; text-align: center; transition: background-color 0.8s ease; }
+    a.button:hover { background-color: #977a8e; }
+    footer { text-align: center; padding: 4rem 2rem 6rem; }
+    .linkedin-icon { display: inline-block; width: 44px; height: 44px; background-color: var(--linkedin); border-radius: 10px; position: relative; text-indent: -9999px; }
+    .linkedin-icon::before { content: "in"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Source Sans 3',sans-serif; font-weight:700; font-size:22px; color:var(--bg); text-indent:0; }
+    .linkedin-icon:hover { background-color: var(--linkedin-hover); }
+    .scroll-top-btn { position: fixed; bottom: 2rem; right: 2rem; width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: var(--body); font-size:1.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; z-index:9999; }
+    .scroll-top-btn:hover { background-color:#977a8e; }
+    
+	@media (max-width: 760px) {
+      header { flex-direction: column; padding:4vh 5vw 2vh; text-align:left; align-items:flex-start; }
+      .intro-text { max-width:90vw; }
+      .intro-line { font-size:2.7rem; }
+      .description { font-size:1.3rem; }
+      .profile-img { width:80vw; margin:1rem auto 0; }
+      .nav-links { margin-left:auto; }
+      .nav-links a { margin-right:0.5rem; }
+      .research-item { flex-direction:column; width:98%; padding:1rem; gap:1rem; text-align:center; align-items:center; }
+      .research-text { width:100%; padding: 1rem; }
+      .research-text h2 { text-align:left; }
+	  .research-text h3 { text-align:left; }
+      .research-text p { text-align:left; }
+      .research-text a.button { margin:1rem auto 0; max-width:60%; }
+      .research-image img { max-width:70%; margin:1rem auto; }
+      .scroll-top-btn { bottom:1rem; right:1rem; }
+    }
+    @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeInUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    @keyframes fadeInBox { to { opacity:1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(1turn); } }
+  </style>
+  
+</head>
+
+
+
+<body>
+  <nav>
+    <a href="index.html" class="logo">Sarah</a>
+    <div class="nav-links">
+      <a href="#research">Research</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="intro-text">
+      <div class="intro-line">Hi, I'm Sarah.</div>
+      <div class="description">I'm a qualitative data scientist dedicated to making data accessible and pretty. ✿</div>
+    </div>
+	
+    <div class="profile-img-wrapper">
+      <img src="images/headshot.jpg" alt="Sarah Headshot" class="profile-img">
+      <div class="star-1">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+      <div class="star-2">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+      <div class="star-3">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+      <div class="star-4">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+      <div class="star-5">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+      <div class="star-6">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
+      </div>
+    </div>
+	
+  </header>
+
+  <section class="section" id="research">
+    <div class="research-item">
+      <div class="research-text">
+        <h2>The Gendered Neurodiversity Gap:</h2>
+
+		<h3>A Data Analysis Exploring the Relationships Between Autism, ADHD, and Gender</h3>
+        <p>Gender-based analysis revealed a greater prevalence of diagnostic delays and internalized symptoms among women and girls.
+		<br><br>
+		These results emphasize the need for gender-based diagnostic sensitivity and awareness of co-occurring conditions in autism spectrum disorder assessment.
+		</p>
+        <a href="research1.html" class="button">Click to Read</a>
+      </div>
+      <div class="research-image">
+	  <figure>
+        <img src="images/research1.jpg" alt="Research 1">
+		</figure>
+      </div>
+    </div>
+    <div class="research-item">
+      <div class="research-text">
+        <h2>Unveiling Female ADHD:</h2>
+		
+		<h3>Early Mental Health Challenges and Diagnosis Delays in University Students</h3>
+        <p>​Millions of people in the U.S. live with a diagnosis of attention-deficit hyperactivity disorder (ADHD).
+		<br><br>
+		Results indicate that most students with ADHD experienced depression and anxiety before university, but formal diagnoses often occurred years later.
+		</p>
+        <a href="research2.html" class="button">Click to Read</a>
+      </div>
+      <div class="research-image">
+	  <figure>
+        <img src="images/research2.jpg" alt="Research 2">
+		</figure>
+      </div>
+    </div>
+    <div class="research-item">
+      <div class="research-text">
+        <h2>Love at First Game:</h2>
+		
+		<h3>How Interest in Gaming Shifts Between Genders Over the Years</h3>
+        <p>Data analysis reveals that both males and females exhibit high gaming interest in their late teens and early twenties. 
+		<br><br> However, males maintain a higher interest in gaming until their mid-thirties, whereas females show a sharper decline, possibly due to societal and personal factors. </p>
+        <a href="research3.html" class="button">Click to Read</a>
+      </div>
+      <div class="research-image">
+	  <figure>
+        <img src="images/research3.jpg" alt="Research 3">
+		</figure>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/sawpy/" class="linkedin-icon" target="_blank">LinkedIn</a>
+    </div>
+    <a href="#top" class="scroll-top-btn" onclick="scrollToTop(event)">&#9650;</a>
+  </footer>
+
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.onbeforeunload = () => window.scrollTo(0, 0);
+
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', `${e.clientX}px`);
+      document.body.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.research-item').forEach(item => observer.observe(item));
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const figures = document.querySelectorAll('.research-image figure');
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2,          // fire when 20% visible
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  figures.forEach(fig => io.observe(fig));
+});
+</script>
+<script>
+// number of fireflies
+const quantity = 15;
+
+// helper to inject a <style> with custom keyframes/nth-child rules
+function injectFireflyStyles(q) {
+  let css = '';
+  for (let i = 1; i <= q; i++) {
+    const steps = Math.floor(Math.random() * 12) + 16;
+    const rotDur = (Math.random() * 10 + 8).toFixed(2) + 's';
+    const flashDur = Math.random() * 6000 + 5000;
+    const flashDelay = Math.random() * 8000 + 500;
+    
+    css += `
+.firefly:nth-child(${i}) {
+  animation-name: move${i};
+}
+.firefly:nth-child(${i})::before {
+  animation-duration: ${rotDur};
+}
+.firefly:nth-child(${i})::after {
+  animation-duration: ${rotDur}, ${flashDur.toFixed(0)}ms;
+  animation-delay: 0ms, ${flashDelay.toFixed(0)}ms;
+}
+@keyframes move${i} {
+`;
+    for (let step = 0; step <= steps; step++) {
+      const pct = (step * (100 / steps)).toFixed(2) + '%';
+      const tx = (Math.random() * 100 - 50).toFixed(2) + 'vw';
+      const ty = (Math.random() * 100 - 50).toFixed(2) + 'vh';
+      const scale = (Math.random() * 0.75 + 0.25).toFixed(2);
+      css += `  ${pct} { transform: translateX(${tx}) translateY(${ty}) scale(${scale}); }\n`;
+    }
+    css += `}\n`;
+  }
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
+// create the fireflies
+for (let i = 1; i <= quantity; i++) {
+  const f = document.createElement('div');
+  f.classList.add('firefly');
+  document.body.appendChild(f);
+}
+
+// now inject the per-firefly motion
+injectFireflyStyles(quantity);
+</script>
+
+</body>
+</html>

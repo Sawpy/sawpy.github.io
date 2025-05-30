@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarah Yip</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+  
+  <script>
+  WebFont.load({
+    google: {
+      families: [
+        'Playfair Display:700',
+        'Raleway:300',
+        'Source Sans 3:700'
+      ]
+    },
+    timeout: 2000  // if fonts don’t load in 2s, fallback to system fonts
+  });
+</script>
+
+<script>
+  // NAVIGATION, SCROLLING, AND MOUSE TRACKING //  
+  
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.onbeforeunload = () => window.scrollTo(0, 0);
+
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', `${e.clientX}px`);
+      document.body.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0 });
+
+
+  </script>
+  
+  <script>
+  // once the DOM is ready, start observing each .section
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Click to Scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocItems = document.querySelectorAll('.toc li');
+    tocItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // 1) scroll to that ID
+        const id = item.dataset.target;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // 2) update the active highlight
+        document.querySelectorAll('.toc li.active')
+                .forEach(li => li.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Auto-Highlight
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const activeLi = document.querySelector(`.toc li[data-target="${id}"]`);
+          if (activeLi) {
+            document.querySelectorAll('.toc li.active')
+                    .forEach(li => li.classList.remove('active'));
+            activeLi.classList.add('active');
+          }
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+    // observe header and every section/details
+    document.querySelectorAll('header[id], section[id], details[id]')
+            .forEach(el => observer2.observe(el));
+  });
+</script>
+
+<script>
+// MAX HEIGHT
+document.querySelectorAll("details").forEach(detail => {
+  const content = detail.querySelector(".content");
+  content.style.overflow = "hidden";
+
+  detail.addEventListener("toggle", () => {
+    if (detail.open) {
+      // from 0 → full height
+      content.style.height = "0px";
+      const full = content.scrollHeight + "px";
+
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = full;
+      });
+
+      content.addEventListener("transitionend", function done() {
+        content.style.height = "auto";
+        content.style.transition = "";
+        content.removeEventListener("transitionend", done);
+      });
+    } else {
+      // from full → 0
+      content.style.height = content.scrollHeight + "px";
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = "0px";
+      });
+    }
+  });
+});
+</script>
+
+
+  
+  <style>
+    :root {
+      --bg: #5E505F;
+      --header: #e4cfe0;
+	  --h1: #e4cfe0;
+	  --h2: #e4cfe0;
+      --body: #C6B8DB;
+      --button: #574458;
+      --accent1: #B9ABCF;
+      --accent2: #e4cfe0;
+      --white: #E0D1CC;
+      --linkedin: #977a8e;
+      --linkedin-hover: #e4cfe0;
+	  --link-bg: #977a8e;
+      --link-hover-bg: #e4cfe0;
+      --button: #574458;
+      --transition-fast: 0.3s ease;
+      --transition-medium: 0.6s ease;
+      --nav-height: 80px;
+	  
+    }
+	
+	
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Raleway', sans-serif;
+      color: var(--body);
+      line-height: 1.3;
+      overflow-x: hidden;
+      padding-top: 1vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,0.04), transparent 255px);
+      z-index: 1;
+    }
+	
+	/* HEADER STYLES */
+	h1 {
+	font-family: 'Playfair Display', serif;
+	font-size: 3rem;
+	color: var(--h1);
+	margin-bottom: 0.3rem;
+	}
+	
+	h2 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.85rem;
+	color: var(--h2);
+	margin-bottom: 0.3rem;
+	}
+	
+	h3 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1.1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+	
+	h4 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+	
+	h5 {
+	font-family: 'Raleway', serif;
+	font-size: 0.9rem;
+	color: body;
+	margin-bottom: 1rem;
+	}
+
+	
+	/* NAVIGATION */
+	
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 2rem 1.25rem 1rem;
+      position: fixed; width: 100%; top: 0; left: 0;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(20px);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--header);
+      margin: 0 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+    }
+    .logo::after {
+      content: ' ✿'; opacity: 0; margin-left: 0.3rem;
+    }
+    .logo:hover { color: var(--accent1); transform: scale(1.08); margin-right: 2rem; }
+    .logo:hover::after { opacity: 1;}
+	
+    .nav-links a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: var(--body);
+      font-size: 1rem;
+      display: inline-block;
+    }
+    .nav-links a:hover { color: var(--accent2); transform: scale(1.08); }
+	
+	/*HERO TITLE*/
+    header {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem;
+      padding: 1vh 1vw 1vh;
+      min-height: 1vh;
+      text-align: left;
+    }
+	
+
+header.article-header {
+  /* keep flex container but stack children top→bottom */
+  display: flex;
+  flex-direction: column;
+
+  /* left-align title & byline */
+  align-items: flex-start;
+  text-align: left;
+
+  padding-top: 1vh;
+  padding-bottom: 2rem;
+}
+
+	
+	
+	*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; transition: all var(--transition-medium); }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--body); font-family: 'Raleway', sans-serif; line-height: 1.6; overflow-x: hidden; padding-top: var(--nav-height); max-width: 1000px; margin: 0 auto; }
+    
+	/* Offset anchors */
+    section[id], details[id] { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--header); margin-bottom: 1rem; }
+    .article-header .byline { font-family: 'Raleway', sans-serif; font-size: 1rem; color: var(--body); margin-bottom: 2rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    
+    .container { display: flex; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+	aside.toc { flex: 0 0 200px; position: sticky; top: calc(var(--nav-height) + 1rem); align-self: flex-start; margin-right: 2rem; }
+    .toc ul { list-style: none; }
+    .toc li { padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer; transition: all var(--transition-fast); }
+    .toc li:hover { transform: scale(1.05); color: var(--accent2); }
+    .toc li.active { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); }
+    .toc li.active:hover { background: #977a8e; }
+    
+	@media (max-width: 768px) { .container { flex-direction: column; } aside.toc { display: none; } }
+	.article-header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--header); margin-bottom: 1rem; }
+    .section { margin-bottom: 2rem; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-medium), transform var(--transition-medium); }
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .abstract { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); border-radius: 15px; padding: 1.5rem; transition: background var(--transition-fast); }
+    .abstract:hover { background: rgba(255,255,255,0.12); }
+	#abstract {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  
+  /*BODY TEXT*/
+    details.section { margin-bottom: 2rem; }
+    details .content { 
+	max-height: none; 
+	overflow: hidden; 
+	transition: max-height 0.5s ease-in-out,
+    padding     0.5s ease-in-out; 
+	}
+	
+    details:not([open]) .content { max-height: 0;}
+	details[open] .content {
+	max-height: none;
+	padding: 1rem;
+	}
+	
+	
+    details>summary { cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    details>summary:hover { color: var(--accent1); }
+    
+	/*FIGURES*/
+	.figure { display: grid;
+	grid-template-columns: 35% 65%;
+	column-gap: 1rem;        /* space between text & image */
+	margin: 2rem 0;
+	align-items: start;
+	}
+
+    .fig-img {text-align: right;}
+	
+    .figure img {
+	max-width: 100%;
+	display: block;
+	background-color: #fff;
+	border: 12px solid #fff;
+	border-radius: 9px;
+
+}
+
+ul {
+  padding-left: 4rem;
+}
+
+
+/* FIGURE DESCRIPTION */
+.fig-desc p {
+  font-size: 0.805rem;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+
+/*FIGURE WRAP*/
+.img-wrap {
+  display: inline-block;
+  width: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 3px;                 /* frame thickness */
+  overflow: hidden;
+  
+  display: flex;
+  justify-self: center;
+}
+
+.img-wrap img {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  transition: transform 0.5s ease;
+  transform-origin: center center;
+}
+
+.img-wrap:hover img {
+  transform: scale(1.05);
+}
+
+
+
+    
+	
+	/* REFERENCES */
+	.references { background: rgba(255,255,255,0.07); 
+	backdrop-filter: blur(20px); 
+	border-radius: 12px; 
+	padding: 3rem; 
+	height: 500px; 
+	overflow-y: auto;
+	overflow-x: hidden;	
+	position: relative; 
+	transition: max-height var(--transition-medium), 
+	background var(--transition-fast); }
+    .references:hover { background: rgba(255,255,255,0.12); 
+	}
+	
+	.section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* CUSTOM SCROLLBAR */
+/* WebKit browsers */
+.references::-webkit-scrollbar {
+  width: 8px;
+}
+.references::-webkit-scrollbar-track {
+  background: transparent;
+}
+.references::-webkit-scrollbar-thumb {
+  background-color: var(--accent1);
+  border-radius: 4px;
+}
+
+/* Firefox */
+.references {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent1) transparent;
+}
+
+hr.divider {
+  border: none;
+  height: 1px;
+  background-color: var(--header);
+  opacity: 0.3;
+  margin: 2rem 0;
+}
+	
+	
+
+    footer { text-align: center; padding: 4rem 2rem 6rem; }
+	
+	
+	/*SOCIAL MEDIA AND SCROLL BUTTON */
+	
+    .linkedin-icon { display: inline-block; width: 44px; height: 44px; background-color: var(--linkedin); border-radius: 10px; position: relative; text-indent: -9999px; }
+    .linkedin-icon::before { content: "in"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Source Sans 3',sans-serif; font-weight:700; font-size:22px; color:var(--bg); text-indent:0; }
+    .linkedin-icon:hover { background-color: var(--linkedin-hover); }
+    .scroll-top-btn { position: fixed; bottom: 2rem; right: 2rem; width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: var(--body); font-size:1.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; z-index:9999; }
+    .scroll-top-btn:hover { background-color:#977a8e; }
+    
+	
+	
+	@media (max-width: 768px) {
+      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:4vh 5vw 2vh; text-align:left; align-items:flex-start; font-size: 2rem }
+
+      .nav-links { margin-left:auto; }
+      .nav-links a { margin-right:1rem; }
+      .scroll-top-btn { bottom:1rem; right:1rem; }
+	  
+	  .figure {
+	  display: grid;
+	  grid-template-columns: 1fr;  /* 1 column only */
+	  row-gap: 1rem;               /* space between desc + image */
+	  }
+	  
+	  .figure .fig-desc,
+	  .figure .fig-img {
+	  max-width: 100%;             /* full width */
+	  text-align: left;
+  }
+    }
+    @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeInUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    @keyframes fadeInBox { to { opacity:1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(1turn); } }
+	
+
+  
+
+	
+  </style>
+  
+  
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">Sarah</a>
+    <div class="nav-links">
+      <a href="index.html#research">Research</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+
+	<div class="container">
+    <aside class="toc">
+      <ul>
+        <li data-target="top" class="active">Title</li>
+        <li data-target="abstract">Abstract</li>
+        <li data-target="introduction">Introduction</li>
+
+        <li data-target="methodology">Methodology</li>
+        <li data-target="results">Results</li>
+        <li data-target="discussion">Discussion</li>
+        <li data-target="conclusion">Conclusion</li>
+        <li data-target="references">References</li>
+      </ul>
+    </aside>
+    <main class="article">
+      <section id="top"></section>
+      <header id="top" class="article-header">
+        <h1>Love at First Game: How Interest in Gaming Shifts Between Genders Over the Years</h1>
+        <p class="byline">Sarah Yip | December 3, 2023</p>
+      </header>
+      <!-- ABSTRACT -->
+      <section id="abstract" class="section">
+        <h2 class="section-title">Abstract</h2>
+        <div class="abstract">
+
+<p>This study explores the connection between gaming interests and dating preferences within the context of speed dating.&nbsp;According to research, romantic partners often share core beliefs, values, and hobbies, though certain traits like height and personality may differ. Data analysis reveals that both males and females exhibit high gaming interest in their late teens and early twenties, which diminishes with age.&nbsp;</p>
+<p><br /><br />By analyzing the data from speed dating events from Columbia University, we found that males maintain a higher interest in gaming until their mid-thirties, whereas females show a sharper decline. This study suggests the existence of notable gender differences in gaming interest trends, with possible societal and personal factors that influence the decline in gaming interest, particularly among females as they age.</p>
+<p>&nbsp;</p>
+
+
+		
+		</div>
+      </section>
+      <!-- INTRODUCTION -->
+      <details id="introduction" class="section" open>
+        <summary>Introduction</summary>
+        <div class="content">
+          
+<p>In dating, opposites are not as likely to attract as people who share similarities. According to research from Tanya Horwitz at the University of Colorado Boulder, &ldquo;80% of traits analyzed &ndash; from political views to drug taking and the age at which people first had sex &ndash; partners were often remarkably similar&rdquo; with &ldquo;only 3%&rdquo; of partners ranking as &ldquo;substantially different.&rdquo; The main traits that did not match were height, weight, medical problems, and personality traits. Romantic partners often share core beliefs, values, and hobbies [1].&nbsp;</p>
+<p><br />&nbsp;<br />Partners do not have to do, like, or do everything together, but they do need to enjoy &ldquo;some degree of shared recreation&rdquo; to &ldquo;build connections.&rdquo; Besides sharing hobbies, research has also shown that &ldquo;couples do well when they are taking up a new hobby together&rdquo; especially if the activity &ldquo;introduces an element of novelty for both participants.&rdquo; In fact, &ldquo;doing new things together that are fun and interesting&rdquo; can reduce the risk of divorce. These factors apply regardless if partners are mixed-sex, same-sex, monogamous, or non-monogamous [2].</p>
+<p><br />&nbsp;<br />Our group selected the Speed Dating Data Set [3] where participants of in-person speed dating events met in 4-minute increments with potential partners and rated them on six attributes which include: Shared interests, attractiveness, intelligence, ambition, fun, and sincerity, these events took place from 2002-2004. The data set also included common hobbies and demographics of the participants and &lsquo;gaming&rsquo; was one area of interest that our group selected as an attribute to further look at including comparing gaming to ambition and intelligence [3].</p>
+<p>&nbsp;</p>
+
+		  
+		  
+		  </div>
+      </details>
+
+      <hr class="divider" />
+      <!-- METHODOLOGY -->
+      <details id="methodology" class="section" open>
+        <summary>Methodology</summary>
+        <div class="content">
+        
+		
+<p>In today&rsquo;s technology age, one of the most common shared interests is playing video games. In the United States, 66% of U.S. citizens play video games, with 83% playing with other people, 52% male, 48% female, 76% of players are over 18, and the average age of players is 33 years old. People who play games for 3 hours or more make up 78% and 69% of households have at least one video game player. Video games also offer benefits, with 86% of players saying that video games helped build teamwork and collaboration skills, 63% built communication skills, and 61% built leadership skills. The majority of video game players play with friends, family, and partners and 83% of players say that games introduce people to new friends and relationships [4].</p>
+<p><br />&nbsp;<br />We will answer the question: &ldquo;Does the level of gaming interest in individuals at different ages have an impact on their dating preferences?&rdquo; Using the SpeedDating dataset, this study aims to investigate the level of interest that individuals in speed dating have in gaming. The dataset contains information about participants&rsquo; demographics, preferences, and interests.</p>
+<p>&nbsp;</p>
+<p>To solve our problem statement, our methodology will consist of preprocessing, data analysis, and data visualization. Preprocessing includes cleaning the dataset and removing any irrelevant columns or rows. For data analysis, we will use the statistical programming language R and the integrated development environment RStudio. For data visualization, we will use the ggplot2 open-source data visualization package to present the findings.</p>
+<p><br /><br />In RStudio, there will be several steps. First, we will install the required packages, load the required libraries, and load the SpeedDating.csv dataset into RStudio. Second, we will filter the data and remove missing values. Third, we will create age groups. Fourth, we will calculate the average gaming score per age group. Lastly, we will create a bar chart using the ggplot2 open-source data visualization package.</p>
+<p>&nbsp;</p>
+
+
+		
+		
+		
+      </details>
+	  <hr class="divider" />
+	  
+	  
+      <!-- RESULTS -->
+      <details id="results" class="section" open>
+        <summary>Results</summary>
+
+<p>Both females and males showed relatively high gaming interest scores during their late teens and early twenties, with average interest scores ranging from 3 to 5. However, gaming interest decreased from their thirties and beyond, with average scores dropping to 2 or 3.</p>
+<p>&nbsp;</p>
+<p>From ages 18 to 23, males are 40% more interested in video games than females, but by age 24, the interest between both genders is nearly the same. Although both genders decrease gaming interest by their thirties and beyond, females have a more stark drop in interest from an average of 4 to 2. Males maintain the same interest level in gaming until 35 when the interest drops from an average of 4 to 3.</p>
+
+<p>&nbsp;</p>
+<h3> Figures </h3>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Fig. 1. Gaming Interest in Speed Dating by Age and Gender</h5>
+    <p>Using R code and the SpeedDating dataset, this is the visualization result for peoples’ interest in gaming along with their age group and gender. This visualization was created with the ggplot2 open-source data visualization package in RStudio. </p>
+	<p>&nbsp;</p>
+	<p>The X-axis has age groups and the Y-axis has the average gaming interest score from 1 to 10. There are two bars per age group, one representing the average gaming interest score for the female gender and the other for the male gender. </p> 
+  
+  
+  
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/game (1).jpg"
+         alt="Gaming Interest in Speed Dating by Age and Gender">
+  </div>
+</figure>
+</div>
+
+
+		
+		
+		
+      </details>
+	  
+	  
+      <!-- DISCUSSION -->
+      <details id="discussion" class="section" open>
+        <summary>Discussion</summary>
+        <div class="content">
+          
+<p>In this Speed Dating analysis, we used the dataset named &ldquo;Speed Dating Experiment&rdquo; from Columbia University, statistical programming languages, and development platforms. After conducting association analysis on the gaming interest scores and dating preferences in the Speed Dating dataset, we found a positive association between gaming interest scores and the likelihood of individuals who express interest in dating partners who share the same level of gaming interest.&nbsp;</p>
+<p><br /><br />However, despite both female and male genders sharing the same level of interest in gaming from ages 24 to 29, other age brackets showed that females showed significantly less interest in gaming compared to males between ages 18 to 23, 30 to 35, and 36 to 40. This data can suggest several ideas about the relationship between interest in gaming and gender, including:</p>
+<p>&nbsp;</p>
+<ul>
+<li><strong>Early adult interest:</strong>&nbsp;Regardless of gender, gaming is a popular activity among young adults.</li>
+<li><strong>Gender disparity, convergence, and gender disparity again:</strong>&nbsp;From ages 18 to 23, males are 40% more interested in video games than females. From ages 24 to 29, the gender gap in gaming interest narrows. From ages 30 to 40, females are 50% less interested in video games than males.</li>
+<li><strong>Decline of interest with age:</strong>&nbsp;Both genders show a decrease in gaming interest from their thirties onward. However, females experience a more pronounced drop in interest compared to males. This could&nbsp;indicate that&nbsp;societal or personal factors may lead to a sharper decline in gaming interest in females as they age.</li>
+<li><strong>Sustained male interest:</strong>&nbsp;Males maintain a relatively consistent level of gaming interest until around age 35, with a 33% decline afterward.</li>
+</ul>
+<p>&nbsp;</p>
+		 
+		 
+		</div>
+      </details>
+      <hr class="divider" />
+	  
+	  
+      <!-- CONCLUSION -->
+      <details id="conclusion" class="section" open>
+        <summary>Conclusion</summary>
+        <div class="content">
+        
+<p><br />Overall, these observations suggest that while both genders engage in gaming during their young adulthood, males tend to maintain their interest longer than females, who show a more significant decline in gaming interest as they age. This gender-specific trend may occur from a variety of factors, including social norms, lifestyle changes, and differing leisure preferences.</p>
+<p>&nbsp;</p>
+
+
+		
+		</div>
+      </details>
+	  
+	  
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <h2 class="section-title">References</h2>
+        <div class="references" id="refs-container">
+          <ol id="refs-list">
+
+<ol>
+<li>I. Sample, “Opposites don’t attract: Couples more likely to be similar than different, study shows,” The Guardian, [Online]. Available: https://www.theguardian.com/science/2023/sep/04/opposites-dont-attract-couples-more-likely-to-be-similar-than-different-study-shows (accessed Dec. 2, 2023).</li>
+<li>S. Knispel, “Looking for a match made in heaven—or online? Science says stay grounded,”NewsCenter,[Online]. Available: https://www.rochester.edu/newscenter/online-dating-apps-find-your-love-relationship-science-549422/ (accessed Dec. 2, 2023).</li>
+<li>U. T. Pedersen, “Speed Dating,” Kaggle, [Online]. Available:https://www.kaggle.com/datasets/ulrikthygepedersen/speed-dating  (accessed Nov. 20 - Dec 3, 2023).</li>
+<li>R. Frymer, “U.S.: 215.5 million people play video games,” Gaming And Media, [Online]. Available: https://g-mnews.com/en/u-s-215-5-million-people-play-video-games/ (accessed Dec. 2, 2023)</li>
+</ol>
+
+
+
+
+          
+          </ol>
+        </div>
+		
+      </section>
+    </main>
+  </div>
+
+
+
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/sawpy/" class="linkedin-icon" target="_blank">LinkedIn</a>
+    </div>
+    <a href="#top" class="scroll-top-btn" onclick="scrollToTop(event)">&#9650;</a>
+  </footer>
+
+
+
+  
+
+
+
+</body>
+</html>
