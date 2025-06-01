@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sarah Yip | About</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
@@ -28,8 +28,8 @@
   <style>
     :root {
       --bg: #5E505F;
-      --header: #e4cfe0;
-      --body: #C6B8DB;
+      --header: #E0D1CC;
+      --body: #E0D1CC;
       --accent1: #b9abcf;
       --accent2: #e4cfe0;
 	  --white: #e0d1cc;
@@ -68,7 +68,7 @@
     
     h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: var(--header);
     margin-bottom: 1.6rem;
     }
@@ -142,7 +142,7 @@
 
     /* ABOUT CONTENT */
     .about-section {
-      padding: 5rem 3rem;
+      padding: 6rem 3rem;
       position: relative;
       z-index: 2;
       display: flex;
@@ -175,8 +175,8 @@
   right: -12px; bottom: -12px;
   border-radius: inherit;
   
-  pointer-events: none;      /* let clicks pass through */
-  z-index: -1;               /* behind the image */
+  pointer-events: none;
+  z-index: -1;
 }
 
   /* profile image fade-in animation */
@@ -320,22 +320,29 @@
 
     @media (max-width: 768px) {
       .about-section {
-        padding: 3rem 1.5rem;
+        padding: 1.3rem 1.3rem;
       }
       .nav-links { margin-left: auto; }
       .nav-links a { margin-right: 0.5rem; }
       .about-row { flex-direction: column; text-align: center; }
-      .profile-img { width: 80vw; margin: 1rem auto 0; }
-      .about-text { text-align: left; }
+      .profile-img { width: 72vw; margin: 0.6rem auto 0; border:11px solid var(--white); border-bottom: 55px solid var(--white); }
+
+	  .about-text { text-align: left; max-width: 48vh; font-size:0.9375rem;
+	  h1 {font-size: 2.1rem; }
+	  h2 {font-size: 1.2rem; }
+	  h3 {font-size: 1.1rem; }
+	  }
       .scroll-top-btn { bottom: 1rem; right: 1rem; }
 	  
 	  .photo-gallery {
         flex-direction: column;
         align-items: center;
+		max-width: 88%;
       }
       .photo-gallery .gallery-img {
         max-width: 80vw;
       }
+	  
     }
 	
 	/* ——— FIREFLIES ——— */
@@ -435,7 +442,7 @@ display: none;
 
     <div class="about-row fun-section">
       <div class="about-text">
-        <h2>about me (fun + human section)</h2>
+        <h3>about me (fun + human section)</h3>
 		
 <p>When I’m not conducting data analysis, I’m likely categorizing information for no reason or losing sleep over hyper-analyzing fictional characters.
 Sometimes you'll also find me decoding ingredients lists (especially skincare) and gushing over cats.</p>
