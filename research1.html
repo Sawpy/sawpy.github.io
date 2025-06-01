@@ -490,6 +490,57 @@ hr.divider {
 	  max-width: 100%;
 	  text-align: left;
   }
+  }
+  
+/* TABLET SIZING */
+@media (min-width: 769px) and (max-width: 1280px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  aside.toc {
+    position: fixed;
+    top: calc(var(--nav-height) + 1rem);
+    left: 1.5rem;
+    width: 147px;
+    margin-right: 1rem;
+    display: block;
+  }
+
+  .article {
+    margin-left: calc(147px + 1rem);
+    padding: 0 1rem;
+    max-width: calc(100vw - (147px + 1rem) - 2rem);
+    box-sizing: border-box;
+  }
+
+  /* Prevent “jumping” when clicking a TOC link */
+  html {
+    scroll-padding-left: calc(147px + 1rem);
+  }
+
+    max-height: calc(100vh - (var(--nav-height) + 2rem));
+    overflow-y: auto;
+  }
+}
+
+  /*Article fill */
+  .article {
+    flex: 1 1 auto;
+	margin-left: calc(150px + 1rem); 
+    width: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .section {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+
+
+}
+  
     }
     @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
