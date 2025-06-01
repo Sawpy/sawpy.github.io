@@ -1,15 +1,12 @@
 <!--
   README.md
   Sarah Yip's Website Portfolio README -->
-<p align="left">
-  <strong><span style="font-size: 2.3rem; color: #5E505F;">Sarah Yip’s Personal Website 🌸</span></strong><br>
-  <span style="font-size: 1.3rem; color: #977a8e;">where systems meet people</span>
-</p>
+# Sarah Yip’s Personal Website 🌸
 
 ---
 
 
-## 🌸 About This Project
+### 🌸 About This Project
 
 Welcome to my personal portfolio website repository! This site reflects my love of data, design, and **soft, muted** visuals:
 
@@ -19,17 +16,17 @@ Welcome to my personal portfolio website repository! This site reflects my love 
 ---
 
 
-## ✨ Live Preview
+### ✨ Live Preview
 
 <p align="center">
-  <img width="500" alt="Screenshot of Home Page" src="https://sawpy.github.io/images/research1.jpg">
+  <img width="500" alt="Screenshot of Home Page" src="https://user-images.githubusercontent.com/your-username/your-repo/raw/main/screenshots/homepage.png">
 </p>
 
 
 ---
 
 
-## 🎀 Built With
+### 🎀 Built With
 
 - **HTML5** 
 - **CSS3** for: custom properties & animations.  
