@@ -1,12 +1,12 @@
 <!--
   README.md
   Sarah Yip's Website Portfolio README -->
-# Sarah Yip’s Personal Website 🌸
+# 🌸 Sarah Yip’s Personal Website 🌸
 
 ---
 
 
-### 🌸 About This Project
+### 🌼 About This Project
 
 Welcome to my personal portfolio website repository! This site reflects my love of data, design, and **soft, muted** visuals:
 
