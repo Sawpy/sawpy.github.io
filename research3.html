@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sarah Yip</title>
-<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />
+<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
@@ -361,10 +361,6 @@ header.article-header {
 
 }
 
-ul {
-  padding-left: 4rem;
-}
-
 
 /* FIGURE DESCRIPTION */
 .fig-desc p {
@@ -380,7 +376,7 @@ ul {
   width: auto;
   background: #fff;
   border-radius: 12px;
-  padding: 3px;                 /* frame thickness */
+  padding: 3px;
   overflow: hidden;
   
   display: flex;
@@ -473,10 +469,11 @@ hr.divider {
 	
 	
 	@media (max-width: 768px) {
-      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:4vh 5vw 2vh; text-align:left; align-items:flex-start; font-size: 2rem }
+      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:3vh 5vw 1vh; text-align:left; align-items:flex-start; font-size: 2rem }
 	  
 	  .article-header h1 {font-size: 1.625rem; }
 	  body {font-size: 0.9375rem;  }
+
 	  
       .nav-links { margin-left:auto; }
       .nav-links a { margin-right:1rem; }
@@ -484,15 +481,66 @@ hr.divider {
 	  
 	  .figure {
 	  display: grid;
-	  grid-template-columns: 1fr;  /* 1 column only */
-	  row-gap: 1rem;               /* space between desc + image */
+	  grid-template-columns: 1fr;
+	  row-gap: 1rem;
 	  }
 	  
 	  .figure .fig-desc,
 	  .figure .fig-img {
-	  max-width: 100%;             /* full width */
+	  max-width: 100%;
 	  text-align: left;
   }
+  }
+  
+/* TABLET SIZING */
+@media (min-width: 769px) and (max-width: 1280px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  aside.toc {
+    position: fixed;
+    top: calc(var(--nav-height) + 1rem);
+    left: 1.5rem;
+    width: 147px;
+    margin-right: 1rem;
+    display: block;
+  }
+
+  .article {
+    margin-left: calc(147px + 1rem);
+    padding: 0 1rem;
+    max-width: calc(100vw - (147px + 1rem) - 2rem);
+    box-sizing: border-box;
+  }
+
+  /* Prevent “jumping” when clicking a TOC link */
+  html {
+    scroll-padding-left: calc(147px + 1rem);
+  }
+
+    max-height: calc(100vh - (var(--nav-height) + 2rem));
+    overflow-y: auto;
+  }
+}
+
+  /*Article fill */
+  .article {
+    flex: 1 1 auto;
+	margin-left: calc(150px + 1rem); 
+    width: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .section {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+
+
+}
+  
     }
     @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
