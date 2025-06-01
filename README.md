@@ -19,7 +19,7 @@ Welcome to my personal portfolio website repository! This site reflects my love 
 ### ✨ Live Preview
 
 <p align="center">
-  <img width="500" alt="Screenshot of Home Page" src="https://user-images.githubusercontent.com/your-username/your-repo/raw/main/screenshots/homepage.png">
+  <img width="500" alt="Screenshot of Home Page" src="https://sawpy.github.io/images/research1.jpg">
 </p>
 
 
