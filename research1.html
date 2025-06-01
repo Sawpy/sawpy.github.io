@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sarah Yip</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
@@ -144,10 +144,10 @@ document.querySelectorAll("details").forEach(detail => {
   <style>
     :root {
       --bg: #5E505F;
-      --header: #e4cfe0;
-	  --h1: #e4cfe0;
-	  --h2: #e4cfe0;
-      --body: #C6B8DB;
+      --header: #E0D1CC;
+	  --h1: #E0D1CC;
+	  --h2: #E0D1CC;
+      --body: #E0D1CC;
       --button: #574458;
       --accent1: #B9ABCF;
       --accent2: #e4cfe0;
@@ -376,7 +376,7 @@ header.article-header {
   width: auto;
   background: #fff;
   border-radius: 12px;
-  padding: 3px;                 /* frame thickness */
+  padding: 3px;
   overflow: hidden;
   
   display: flex;
@@ -469,21 +469,25 @@ hr.divider {
 	
 	
 	@media (max-width: 768px) {
-      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:4vh 5vw 2vh; text-align:left; align-items:flex-start; font-size: 2rem }
+      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:3vh 5vw 1vh; text-align:left; align-items:flex-start; font-size: 2rem }
+	  
+	  .article-header h1 {font-size: 1.625rem; }
+	  body {font-size: 0.9375rem;  }
 
+	  
       .nav-links { margin-left:auto; }
       .nav-links a { margin-right:1rem; }
       .scroll-top-btn { bottom:1rem; right:1rem; }
 	  
 	  .figure {
 	  display: grid;
-	  grid-template-columns: 1fr;  /* 1 column only */
-	  row-gap: 1rem;               /* space between desc + image */
+	  grid-template-columns: 1fr;
+	  row-gap: 1rem;
 	  }
 	  
 	  .figure .fig-desc,
 	  .figure .fig-img {
-	  max-width: 100%;             /* full width */
+	  max-width: 100%;
 	  text-align: left;
   }
     }
