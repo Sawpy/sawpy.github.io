@@ -29,7 +29,7 @@ Welcome to my personal portfolio website repository! This site reflects my love 
 ### 🎀 Built With
 
 - **HTML5** 
-- **CSS3** for: custom properties & animations.  
+- **CSS3** for: custom properties and animations.  
 - **JavaScript** for: effects and keyframes on background and scroll.
 
 - **Google Fonts**:
