@@ -43,6 +43,7 @@
       --linkedin: #977a8e;
       --linkedin-hover: #e4cfe0;
 	  --sparkle-color: #eaa5a8;
+	  --nav-height: 80px;
 	  
     }
     *, *::before, *::after {
@@ -196,6 +197,9 @@
     .profile-img:hover::before { opacity: 0.4; }
     .section { padding: 1vh 9vw 1vh; }
 
+#research {
+  scroll-margin-top: 6vh;
+}
 
 
 
@@ -570,7 +574,7 @@ display: none;
 
     function scrollToTop(e) {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 1, behavior: 'smooth' });
     }
 
     const observer = new IntersectionObserver(entries => {
