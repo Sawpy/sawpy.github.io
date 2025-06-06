@@ -4,41 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- METADATA -->
   <meta name="author" content="Sarah Yip" />
   <meta name="keywords"
-        content="Sarah Yip, qualitative data scientist, qualitative data science, neurodiversity, research, female, autism, ADHD" />
-  <link rel="canonical" href="https://sawpy.github.io/" />
+        content="Sarah Yip, neurodiversity, research, female, gender, autism, ADHD, auDHD" />
+  <link rel="canonical" href="https://sawpy.github.io/research1.html" />
 
   <meta name="description"
-        content="Hi, I'm Sarah Yip. I'm a qualitative data scientist dedicated to making data accessible and pretty." />
+        content="Gender-based analysis revealed a greater prevalence of diagnostic delays and internalized symptoms among women and girls." />
 
 <!-- Open Graph (Social Media) -->
-  <meta property="og:title" content="Sarah Yip | Qualitative Data Scientist & Data Visualizer" />
+  <meta property="og:title" content="Sarah Yip | The Gendered Neurodiversity Gap" />
   <meta property="og:description"
-        content="Sarah Yip Homepage | qualitative data scientist making data accessible and pretty." />
+        content="Sarah Yip | The Gendered Neurodiversity Gap" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sawpy.github.io/" />
+  <meta property="og:url" content="https://sawpy.github.io/research1.html" />
 
   <!-- 1200×630 shared image preview -->
   <meta property="og:image" content="https://raw.githubusercontent.com/Sawpy/sawpy.github.io/refs/heads/main/images/sawpy.github.io_preview_1200x630.png" />
   <meta property="og:locale" content="en_US" />
 
 
-<meta name="Sarah Yip Home" content="Sarah Yip's Homepage">
-<title>Sarah Yip</title>
-  
-<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />
-
+  <meta name="Sarah Yip | The Gendered Neurodiversity Gap" content="The Gendered Neurodiversity Gap: A Data Analysis Exploring the Relationships Between Autism, ADHD, and Gender | by Sarah Yip">
+  <title>Sarah Yip The Gendered Neurodiversity Gap</title>
+<link rel="icon" href="images/sawpy_icon.svg" type="image/svg+xml" />  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300&family=Source+Sans+3:wght@700&display=swap" rel="stylesheet">
   
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
 <!-- JSON-LD Structured Data: Person Schema -->
   <script type="application/ld+json">
   {
@@ -62,6 +56,123 @@
     timeout: 2000  // if fonts don’t load in 2s, fallback to system fonts
   });
 </script>
+
+<script>
+  // NAVIGATION, SCROLLING, AND MOUSE TRACKING //  
+  
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.onbeforeunload = () => window.scrollTo(0, 0);
+
+    document.addEventListener('mousemove', e => {
+      document.body.style.setProperty('--x', `${e.clientX}px`);
+      document.body.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0 });
+
+
+  </script>
+  
+  <script>
+  // once the DOM is ready, start observing each .section
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Click to Scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocItems = document.querySelectorAll('.toc li');
+    tocItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // 1) scroll to that ID
+        const id = item.dataset.target;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // 2) update the active highlight
+        document.querySelectorAll('.toc li.active')
+                .forEach(li => li.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  });
+</script>
+
+<script>
+  // Table of Contents Auto-Highlight
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer2 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const activeLi = document.querySelector(`.toc li[data-target="${id}"]`);
+          if (activeLi) {
+            document.querySelectorAll('.toc li.active')
+                    .forEach(li => li.classList.remove('active'));
+            activeLi.classList.add('active');
+          }
+        }
+      });
+    }, {
+      threshold: 0.6
+    });
+    // observe header and every section/details
+    document.querySelectorAll('header[id], section[id], details[id]')
+            .forEach(el => observer2.observe(el));
+  });
+</script>
+
+<script>
+// MAX HEIGHT
+document.querySelectorAll("details").forEach(detail => {
+  const content = detail.querySelector(".content");
+  content.style.overflow = "hidden";
+
+  detail.addEventListener("toggle", () => {
+    if (detail.open) {
+      // from 0 → full height
+      content.style.height = "0px";
+      const full = content.scrollHeight + "px";
+
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = full;
+      });
+
+      content.addEventListener("transitionend", function done() {
+        content.style.height = "auto";
+        content.style.transition = "";
+        content.removeEventListener("transitionend", done);
+      });
+    } else {
+      // from full → 0
+      content.style.height = content.scrollHeight + "px";
+      requestAnimationFrame(() => {
+        content.style.transition = "height 0.5s ease-in-out";
+        content.style.height = "0px";
+      });
+    }
+  });
+});
+</script>
+
+
   
   <style>
     :root {
@@ -76,10 +187,16 @@
       --white: #E0D1CC;
       --linkedin: #977a8e;
       --linkedin-hover: #e4cfe0;
-	  --sparkle-color: #eaa5a8;
-	  --nav-height: 80px;
+	  --link-bg: #977a8e;
+      --link-hover-bg: #e4cfe0;
+      --button: #574458;
+      --transition-fast: 0.3s ease;
+      --transition-medium: 0.6s ease;
+      --nav-height: 80px;
 	  
     }
+	
+	
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -97,7 +214,7 @@
       color: var(--body);
       line-height: 1.3;
       overflow-x: hidden;
-      padding-top: 80px;
+      padding-top: 1vh;
     }
     body::before {
       content: "";
@@ -129,6 +246,20 @@
 	font-size: 1.1rem;
 	color: var(--h2);
 	margin-bottom: 1.6rem;
+	}
+	
+	h4 {
+	font-family: 'Playfair Display', serif;
+	font-size: 1rem;
+	color: var(--h2);
+	margin-bottom: 1.6rem;
+	}
+	
+	h5 {
+	font-family: 'Raleway', serif;
+	font-size: 0.9rem;
+	color: body;
+	margin-bottom: 1rem;
 	}
 
 	
@@ -167,567 +298,898 @@
       display: inline-block;
     }
     .nav-links a:hover { color: var(--accent2); transform: scale(1.08); }
-    
-    
+	
+	/*HERO TITLE*/
     header {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-      gap: 3rem;
-      padding: 2vh 5vw 1vh;
-      min-height: 85vmin;
+      display: flex; align-items: center; justify-content: center;
+      gap: 2rem;
+      padding: 1vh 1vw 1vh;
+      min-height: 1vh;
       text-align: left;
     }
 	
-	/*INTRODUCTION*/
-    .intro-text { max-width: 39vmin; text-align: left; }
-    .intro-line {
-      font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      color: var(--header);
-      opacity: 0;
-      animation: fadeInLeft 0.5s ease-out forwards;
-	  white-space: nowrap;
-	  padding: 1rem;
-	  padding-bottom: 0.375rem;
-    }
-    .intro-line:hover {color: var(--accent2); }
-	
-    .description {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.5rem;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease-out forwards;
-      animation-delay: 0.875s;
-	  padding: 1rem;
-    }
-    .description:hover {color: var(--accent2); }
-	
-	/*PROFILE IMAGE*/
-	.profile-img {
-	border: 0.7rem solid var(--white);
-  border-bottom: 3.7rem solid var(--white);
-  border-radius: 0.2rem;
-  backdrop-filter: blur(3rem);
-  box-shadow: 0 1rem 2rem rgba(88, 68, 89, 0.8);
-      width: 360px; height: auto;
-      opacity: 0;
-      
-      animation: fadeIn 0.4s ease-out forwards;
-      filter: brightness(1);
-      position: relative;
-    }
-	
-	.profile-img::before {
 
-  content: '';
-  position: absolute;
-  top: -12px; left: -12px;
-  right: -12px; bottom: -12px;
-  border-radius: inherit;
+header.article-header {
+  /* keep flex container but stack children top→bottom */
+  display: flex;
+  flex-direction: column;
+
+  /* left-align title & byline */
+  align-items: flex-start;
+  text-align: left;
+
+  padding-top: 1vh;
+  padding-bottom: 2rem;
+}
+
+	
+	
+	*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; transition: all var(--transition-medium); }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--body); font-family: 'Raleway', sans-serif; line-height: 1.6; overflow-x: hidden; padding-top: var(--nav-height); max-width: 1000px; margin: 0 auto; }
+    
+	/* Offset anchors */
+    section[id], details[id] { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    .article-header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--header); margin-bottom: 1rem; }
+    .article-header .byline { font-family: 'Raleway', sans-serif; font-size: 1rem; color: var(--body); margin-bottom: 2rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    
+    .container { display: flex; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+	aside.toc { flex: 0 0 200px; position: sticky; top: calc(var(--nav-height) + 1rem); align-self: flex-start; margin-right: 2rem; }
+    .toc ul { list-style: none; }
+    .toc li { padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer; transition: all var(--transition-fast); }
+    .toc li:hover { transform: scale(1.05); color: var(--accent2); }
+    .toc li.active { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); }
+    .toc li.active:hover { background: #977a8e; }
+    
+	@media (max-width: 768px) { .container { flex-direction: column; } aside.toc { display: none; } }
+	.article-header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--header); margin-bottom: 1rem; }
+    .section { margin-bottom: 2rem; opacity: 0; transform: translateY(20px); transition: opacity var(--transition-medium), transform var(--transition-medium); }
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .abstract { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); border-radius: 15px; padding: 1.5rem; transition: background var(--transition-fast); }
+    .abstract:hover { background: rgba(255,255,255,0.12); }
+	#abstract {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
   
-  pointer-events: none;
-  z-index: -1;
-}
+  
+  /*BODY TEXT*/
+    details.section { margin-bottom: 2rem; }
+    details .content { 
+	max-height: none; 
+	overflow: hidden; 
+	transition: max-height 0.5s ease-in-out,
+    padding     0.5s ease-in-out; 
+	}
 	
-    .profile-img:hover { transform: scale(1.06) rotate(3deg); filter: brightness(1.08); }
-
-    .profile-img:hover::before { opacity: 0.4; }
-    .section { padding: 1vh 9vw 1vh; }
-
-#research {
-  scroll-margin-top: 6vh;
-  margin-top: 6vh;
-}
-
-
-/*  Bouncy arrow */
-
-.arrow-wrapper {
- position: absolute;
- bottom: 3vmax;
- left: 50%;
- transform: translateX(-50%);
- margin: 0;
- z-index: 2;   
-}
-
-.arrow {
-  width: 38px;
-  height: 14px;
-  margin: 0 auto;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  opacity: 0.39;
-  transition: opacity ease 0.8s;
-  animation: bouncey 1.6s linear infinite;
-}
-
-.arrow:hover {
-  opacity: 1;
-}
-
-.arrow ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  height: 4px;
-}
-
-.arrow ul li {
-  width: 24px;
-  height: 4px;
-  background: var(--sparkle-color);
-  position: absolute;
-}
-
-.arrow ul li:nth-child(1) {
-  left: 0;
-  top: 0;
-  transform: rotate(45deg);
-  border-radius: 5px 0 0 5px;
-}
-
-.arrow ul li:nth-child(2) {
-  left: 14px;
-  top: 0;
-  transform: rotate(-45deg);
-  border-radius: 0 5px 5px 0;
-}
-
-@keyframes bouncey {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(4px); }
-  100% { transform: translateY(0); }
-}
-
-
-
-
-/* PROFILE SPARKLES */
-
-.profile-img-wrapper {
-      position: relative;
-      display: inline-block;
-    }
-    .profile-img-wrapper .profile-img {
-      display: block;
-      position: relative;
-      z-index: 1;
-    }
-    .profile-img-wrapper .star-1,
-    .profile-img-wrapper .star-2,
-    .profile-img-wrapper .star-3,
-    .profile-img-wrapper .star-4,
-    .profile-img-wrapper .star-5,
-    .profile-img-wrapper .star-6 {
-      position: absolute;
-      width: auto;
-      height: auto;
-      filter: drop-shadow(0 0 0 var(--sparkle-color));
-      z-index: -5;
-      transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
-    }
-    .profile-img-wrapper .star-1 { top: 20%; left: 20%; width: 33px; transition-timing-function: cubic-bezier(0.05, 0.83, 0.43, 0.96); }
-    .profile-img-wrapper .star-2 { top: 45%; left: 45%; width: 25px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
-    .profile-img-wrapper .star-3 { top: 40%; left: 40%; width: 11px; transition-timing-function: cubic-bezier(0, 0.4, 0, 1.01); }
-    .profile-img-wrapper .star-4 { top: 20%; left: 40%; width: 17px; transition: all .8s cubic-bezier(0, 0.4, 0, 1.01); }
-    .profile-img-wrapper .star-5 { top: 25%; left: 45%; width: 22px; transition: all .6s cubic-bezier(0, 0.4, 0, 1.01); }
-    .profile-img-wrapper .star-6 { top: 5%; left: 50%; width: 14px; transition: all .8s ease; }
-
-    .profile-img-wrapper:hover .star-1 { top: -73%; left: -70%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-2 { top: -69%; left: -11%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-3 { top: 85%; left: -20%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-4 { top: 80%; left: 107%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-5 { top: 25%; left: 123%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-6 { top: -35%; left: 80%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-
-    .profile-img-wrapper .fil0 { fill: var(--sparkle-color); }
-
-
-    /* 	RESEARCH BOXES */
-    .research-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 2rem auto;
-      width: 90%; max-width: 1000px;
-      background-color: rgba(255,255,255,0.07);
-      padding: 1.3rem;
-      border-radius: 24px;
-      backdrop-filter: blur(20px);
-      opacity: 0; transform: translateY(40px);
-    }
-    .research-text { flex: 0 0 67%; padding: 1rem; }
-    .research-image { flex: 0 0 33%; display: flex; justify-content: center; padding: 1rem;}
-    .research-image img {
-      width: 100%; height: auto; border-radius: 20px;
-    }
-    .research-item.visible { animation: fadeInBox 0.6s ease-out forwards; }
-    .research-text h2,
-    .research-image img,
-    .research-text p,
-    .research-text a { opacity: 0; transform: translateY(20px); }
-    .visible .research-text h2 { animation: fadeInUp 0.4s ease-out 0.2s forwards; color: var(--h2); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
-    .visible .research-image img { animation: fadeInUp 0.4s ease-out 0.4s forwards; }
-    .visible .research-text p { animation: fadeInUp 0.4s ease-out 0.6s forwards; }
-    .visible .research-text a { animation: fadeInUp 0.4s ease-out 0.8s forwards; }
-    .research-text p { color: var(--body); margin-bottom: 1rem; font-family: 'Raleway', sans-serif; }
-    .research-item:hover { background-color: rgba(255,255,255,0.12); }
+    details:not([open]) .content { max-height: 0;}
+	details[open] .content {
+	max-height: none;
+	padding: 1rem;
+	}
 	
 	
-/* Polaroid Research Boxes */
-.research-image figure {
-  --c: 50px;   /* corner‐cut size */
-  --p: 30px;   /* padding (border thickness) */
-  --d: 10px;   /* drop‐shadow size */
+    details>summary { cursor: pointer; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--header); margin-bottom: 1rem; }
+    details>summary:hover { color: var(--accent1); }
+    
+	/*FIGURES*/
+	.figure { display: grid;
+	grid-template-columns: 35% 65%;
+	column-gap: 1rem;        /* space between text & image */
+	margin: 2rem 0;
+	align-items: start;
+	}
+
+    .fig-img {text-align: right;}
+	
+    .figure img {
+	max-width: 100%;
+	display: block;
+	background-color: #fff;
+	border: 12px solid #fff;
+	border-radius: 9px;
+
+}
+
+
+/* FIGURE DESCRIPTION */
+.fig-desc p {
+  font-size: 0.805rem;
+  line-height: 1.3;
+  margin-top: 1rem;
+}
+
+
+/*FIGURE WRAP*/
+.img-wrap {
   display: inline-block;
-  padding: var(--p);
-  background:
-    /* top‐left and bottom‐right corner accents */
-    radial-gradient(farthest-side at 0 0, #584459, transparent) 0 0 / var(--c) var(--c),
-    radial-gradient(farthest-side at 100% 100%, #584459, transparent) 100% 100% / var(--c) var(--c),
-    /* main “photo” area in border color */
-    linear-gradient(#fff 0 0) 50% 50% / calc(100% - var(--p)) calc(100% - var(--p)),
-    /* inner shadows top/bottom in  shadow color */
-    linear-gradient(
-      #0000,
-      #584459 25%,
-      #584459 75%,
-      #0000
-    ) 50% 50% / calc(100% - var(--p)) calc(100% - var(--d)),
-    /* inner shadows left/right */
-    linear-gradient(
-      90deg,
-      #0000,
-      #584459 25%,
-      #584459 75%,
-      #0000
-    ) 50% 50% / calc(100% - var(--d)) calc(100% - var(--p)),
-    /* little drop‐shadow flecks in shadow color at low opacity */
-    radial-gradient(
-      farthest-side at 0 100%,
-      #58445929,
-      transparent
-    ) calc(100% - var(--d)*0.5) calc(var(--d)*0.5) / var(--d) var(--d),
-    radial-gradient(
-      farthest-side at 100% 0,
-      #58445929,
-      transparent
-    ) calc(var(--d)*0.5) calc(100% - var(--d)*0.5) / var(--d) var(--d);
-  background-repeat: no-repeat;
-  clip-path: polygon(
-    0 var(--c),
-    var(--c) 0,
-    100% 0,
-    100% calc(100% - var(--c)),
-    calc(100% - var(--c)) 100%,
-    0 100%
-  );
+  width: auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 3px;
+  overflow: hidden;
+  
+  display: flex;
+  justify-self: center;
 }
 
-.research-image figure img {
+.img-wrap img {
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
-  object-fit: cover;
-  position: relative;
-  z-index: 0;
+  margin: 0 auto;
+  display: block;
+  transition: transform 0.5s ease;
+  transform-origin: center center;
+}
+
+.img-wrap:hover img {
+  transform: scale(1.05);
 }
 
 
-.research-image figure {
+
+    
+	
+	/* REFERENCES */
+	.references { background: rgba(255,255,255,0.07); 
+	backdrop-filter: blur(20px); 
+	border-radius: 12px; 
+	padding: 3rem; 
+	height: 500px; 
+	overflow-y: auto;
+	overflow-x: hidden;	
+	position: relative; 
+	transition: max-height var(--transition-medium), 
+	background var(--transition-fast); }
+    .references:hover { background: rgba(255,255,255,0.12); 
+	}
+	
+	.section {
   opacity: 0;
-  transform: translateY(30px);
-  transition: 
-    opacity 0.8s ease-out, 
-    transform 0.8s ease-out;
+  transform: translateY(20px);
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
 }
-
-/* when in-view, slide up and fade in */
-.research-image figure.in-view {
+.section.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ——— FIREFLIES ——— */
-:root {
-  --firefly-quantity: 12;
+
+/* CUSTOM SCROLLBAR */
+/* WebKit browsers */
+.references::-webkit-scrollbar {
+  width: 8px;
+}
+.references::-webkit-scrollbar-track {
+  background: transparent;
+}
+.references::-webkit-scrollbar-thumb {
+  background-color: var(--accent1);
+  border-radius: 4px;
 }
 
-.firefly {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 0.4vw;
-  height: 0.4vw;
-  margin: -0.2vw 0 0 9.8vw;
-  animation: ease 200s alternate infinite;
-  pointer-events: none;
-  z-index: 2; /* above your backdrop */
+/* Firefox */
+.references {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent1) transparent;
 }
 
-.firefly::before,
-.firefly::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  transform-origin: -10vw;
+hr.divider {
+  border: none;
+  height: 1px;
+  background-color: var(--header);
+  opacity: 0.3;
+  margin: 2rem 0;
 }
-
-.firefly::before {
-display: none;
-  background: #eaa5a8;
-  opacity: 0 !important;
-  animation: drift ease alternate infinite;
-}
-
-.firefly::after {
-  background: #eaa5a8;
-  opacity: 0;
-  box-shadow: 0 0 0vw 0vw #e6d1d0;
-  animation: drift ease alternate infinite,
-             flash ease infinite;
-}
-
-/* random motion & timing */
-@keyframes drift {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-@keyframes flash {
-  0%, 30%, 100% {
-    opacity: 0;
-    box-shadow: 0 0 0vw 0vw #e6d1d0;
-  }
-  5% {
-    opacity: 1;
-    box-shadow: 0 0 2vw 0.4vw #e6d1d0;
-  }
-}
-
 	
 	
-    a.button { display: inline-block; background-color: var(--button); color: var(--body); padding: 0.6rem 0.9rem; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 1rem; text-align: center; transition: background-color 0.8s ease; }
-    a.button:hover { background-color: #977a8e; }
+
     footer { text-align: center; padding: 4rem 2rem 6rem; }
+	
+	
+	/*SOCIAL MEDIA AND SCROLL BUTTON */
+	
     .linkedin-icon { display: inline-block; width: 44px; height: 44px; background-color: var(--linkedin); border-radius: 10px; position: relative; text-indent: -9999px; }
     .linkedin-icon::before { content: "in"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Source Sans 3',sans-serif; font-weight:700; font-size:22px; color:var(--bg); text-indent:0; }
     .linkedin-icon:hover { background-color: var(--linkedin-hover); }
     .scroll-top-btn { position: fixed; bottom: 2rem; right: 2rem; width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: var(--body); font-size:1.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; z-index:9999; }
     .scroll-top-btn:hover { background-color:#977a8e; }
     
+	
+	
+	@media (max-width: 768px) {
+      header { flex-direction: column; padding-top: calc(var(--nav-height)); padding:3vh 5vw 1vh; text-align:left; align-items:flex-start; font-size: 2rem }
+	  
+	  .article-header h1 {font-size: 1.625rem; }
+	  body {font-size: 0.9375rem;  }
 
-/*PHONE SIZING*/
-@media (max-width: 768px) {
-  header {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 1vh 9vw 1vh;
-    text-align: left;
-    align-items: flex-start;
-    gap: 1.3rem;
-    min-height: calc(99vh - var(--nav-height));
+	  
+      .nav-links { margin-left:auto; }
+      .nav-links a { margin-right:1rem; }
+      .scroll-top-btn { bottom:1rem; right:1rem; }
+	  
+	  .figure {
+	  display: grid;
+	  grid-template-columns: 1fr;
+	  row-gap: 1rem;
+	  }
+	  
+	  .figure .fig-desc,
+	  .figure .fig-img {
+	  max-width: 100%;
+	  text-align: left;
+  }
+  }
+  
+/* TABLET SIZING */
+@media (min-width: 769px) and (max-width: 1280px) {
+  body {
+    overflow-x: hidden;
   }
 
-      .intro-text { width: 77vmin; max-width: 600px; padding: 0.375rem; margin-top:calc(var(--nav-height) - 21vmax);}
-      .intro-line { font-size:2rem;}
-      .description { font-size:1rem; }
-      .profile-img-wrapper { display: block; margin: 1rem auto 0; width: 77vw; max-width: 600px;}
-      .profile-img { display: block; width: 51vmin; max-width: 360px; margin: 0 auto; 
-      border: 9px solid var(--white); border-bottom: 43px solid var(--white); }
+  aside.toc {
+    position: fixed;
+    top: calc(var(--nav-height) + 1rem);
+    left: 1.5rem;
+    width: 147px;
+    margin-right: 1rem;
+    display: block;
+  }
 
-      .arrow-wrapper {
- position: relative;
- bottom: -3vmax;
- left: 50%;
- transform: translateX(-50%);
- margin: 0;
- z-index: 2;   
+  .article {
+    margin-left: calc(147px + 1rem);
+    padding: 0 1rem;
+    max-width: calc(100vw - (147px + 1rem) - 2rem);
+    box-sizing: border-box;
+  }
+
+  /* Prevent “jumping” when clicking a TOC link */
+  html {
+    scroll-padding-left: calc(147px + 1rem);
+    max-height: calc(100vh - (var(--nav-height) + 2rem));
+    overflow-y: auto;
+  }
+}
 }
 
-.profile-img-wrapper:hover .star-1 { top: -118%; left: -42%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-2 { top: -111%; left: 0%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-3 { top: 85%; left: -20%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-4 { top: 80%; left: 93%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-5 { top: 25%; left: 102%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-6 { top: -55%; left: 90%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
+  /*Article fill */
+  .article {
+    flex: 1 1 auto;
+	margin-left: calc(150px + 1rem); 
+    width: auto;
+    padding: 0;
+    overflow: visible;
+  }
 
-      
-      .nav-links { margin-left:auto; }
-      .nav-links a { margin-right:0.5rem; }
+  .section {
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
 
-      .research-item { flex-direction:column; width:100%; padding:1rem; gap:1rem; 
-        text-align:center; align-items:center; }
-      .research-text { width:100%; padding: 1rem; }
-      .research-text h2 { text-align:left; font-size:1.6rem;}
-	  .research-text h3 { text-align:left; font-size: 1.03rem; }
-      .research-text p { text-align:left; font-size: 0.93rem;}
-      .research-text a.button { margin:0.9rem auto 0; max-width:60%; }
-      .research-image img { width: 90%; max-width:222px; margin:1rem auto; }
-      .scroll-top-btn { bottom:1rem; right:1rem; }
+
+}
+  
     }
-
-/*TABLET SIZING*/
-@media (min-width: 769px) and (max-width: 1300px) {
-      header { flex-direction: column; align-items:flex-start; }
-
-      .intro-text { width: 70vmin; max-width: 600px; padding: 0.875rem; margin-top: calc(-var(--nav-height))}
-	  .profile-img-wrapper { display: block; margin: 3rem auto 0; max-width: 77vw;}
-
-    .profile-img-wrapper:hover .star-1 { top: -108%; left: -42%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-2 { top: -103%; left: 0%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-3 { top: 85%; left: -20%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-4 { top: 80%; left: 107%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-5 { top: 25%; left: 123%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-    .profile-img-wrapper:hover .star-6 { top: -55%; left: 90%; filter: drop-shadow(0 0 10px var(--sparkle-color)); z-index: 2; }
-
-	        .arrow-wrapper {
- position: absolute;
- bottom: 3vmin;
- left: 50%;
- transform: translateX(-50%);
- margin: 0;
- z-index: 2;   
-}
-	 }
-	  
-	  
-	
     @keyframes fadeInLeft { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
     @keyframes fadeInUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
     @keyframes fadeInBox { to { opacity:1; transform: translateY(0); } }
     @keyframes spin { to { transform: rotate(1turn); } }
+	
+
+  
+
+	
   </style>
   
+  
 </head>
-
-
-
 <body>
   <nav>
     <a href="index.html" class="logo">Sarah</a>
     <div class="nav-links">
-      <a href="#research">Research</a>
+      <a href="index.html#research">Research</a>
       <a href="about.html">About</a>
     </div>
   </nav>
 
 
-  <!-- Introduction -->
-  <header>
-    <div class="intro-text">
-      <div class="intro-line">Hi, I'm Sarah.</div>
-      <div class="description">I'm a qualitative data scientist dedicated to making data accessible and pretty. ✿</div>
-	  <div class="description" style="font-size:1rem;"> Currently based in Houston, TX. </div>
-	  
-    </div>
-	
-	
-    <div class="profile-img-wrapper">
-      <img src="images/headshot.jpg" alt="Sarah Headshot" class="profile-img">
-      <div class="star-1">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-      <div class="star-2">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-      <div class="star-3">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-      <div class="star-4">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-      <div class="star-5">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-      <div class="star-6">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"><defs></defs><g><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
-      </div>
-    </div>
-	
-<!-- Bouncy arrow -->
+	<div class="container">
+    <aside class="toc">
+      <ul>
+        <li data-target="top" class="active">Title</li>
+        <li data-target="abstract">Abstract</li>
+        <li data-target="introduction">Introduction</li>
 
-  <div class="arrow-wrapper">
-    <a href="#research">
-      <div class="arrow">
-        <ul>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </a>
+        <li data-target="methodology">Methodology</li>
+        <li data-target="results">Results</li>
+        <li data-target="discussion">Discussion</li>
+        <li data-target="conclusion">Conclusion</li>
+        <li data-target="references">References</li>
+      </ul>
+    </aside>
+    <main class="article">
+      <section id="top"></section>
+      <header id="top" class="article-header">
+        <h1>The Gendered Neurodiversity Gap: A Data Analysis Exploring the Relationships Between Autism, ADHD, and Gender</h1>
+        <p class="byline">Sarah Yip | August 1, 2025</p>
+      </header>
+      <!-- ABSTRACT -->
+      <section id="abstract" class="section">
+        <h2 class="section-title">Abstract</h2>
+        <div class="abstract">
+          <p>This study examines correlations between DSM-5 autism spectrum disorder (ASD) levels and key clinical symptoms, including verbal ability, social deficits, repetitive behaviors, and sensory hypo-reactivity. Findings indicate a consistent alignment between ASD level and symptom severity, with repetitive behaviors and sensory hypo-reactivity showing the strongest associations. 
+		  <br><br>
+		  Verbal ability varied significantly among individuals with level 1 or 2 ASD but showed a strong correlation with level 3 ASD. Social deficits followed a predictable gradient across ASD levels, with notable distinctions between levels 1 and 2. Gender-based analysis revealed diagnostic delays in females and a greater prevalence of internalized symptoms, consistent with existing literature. Although females exhibited repetitive behaviors more frequently, such behaviors more often prompted diagnosis in males. Sensory hypo-reactivity and social deficits appeared across genders without significant statistical differences. 
+		  <br><br>
+		  Comorbidity analysis showed attention-deficit hyperactivity disorder (ADHD) and learning disorders as the most common co-occurring conditions. While co-occurring ASD and ADHD did not reveal major gender differences in symptom profiles, participants with ASD and learning disorders showed reduced verbal ability and tended toward lower ASD severity. 
+		  <br><br>
+		  These results emphasize the value of symptom-based profiling in ASD assessment and highlight the need for greater diagnostic sensitivity, particularly for females and individuals with co-occurring conditions.</p>
+        </div>
+      </section>
+      <!-- INTRODUCTION -->
+      <details id="introduction" class="section" open>
+        <summary>Introduction</summary>
+        <div class="content">
+          
+<h3>Autism Spectrum Disorder</h3>
+<p>In the United States, &ldquo;a recent study reported that 1 in 36 children&rdquo; live with autism spectrum disorder (ASD). ASD refers to a complex set of neurodevelopmental disorders &ldquo;characterized by deficits in three main areas of functioning, including social interaction, communication skills, and pervasive or repetitive behaviors,&rdquo; as described in the Diagnostic and Statistical Manual of Mental Disorders (DSM-5) (Salehi, M. et al., 2025). In the psychiatric industry, the DSM-5 provides practitioners with diagnostic codes and identifying pathologies, with a large majority of practitioners using the DSM-5 at least once a month as a requirement by their employers and third-party payers and to help in the psychiatric diagnostic process (Raskin et al., 2022).</p>
+<p>&nbsp;</p>
+<h3>Importance of Assessing Autism</h3>
+<p>Research highlights &ldquo;the value of early intervention in improving outcomes for children with ASD,&rdquo; stressing &ldquo;the importance of starting interventions early enough to capitalize on the ample neural plasticity of infants and preschool-aged children&rdquo; (Kauley, N. et al., 2024). Although &ldquo;evidence suggests that parents might be capable of identifying concerns related to ASD in their children even before the child reaches 12 months of age,&rdquo; many children receive a diagnosis later possibly due to &ldquo;a shortage of experts, lengthy evaluation processes, high costs of care, and reluctance among healthcare providers to make referrals,&rdquo; ultimately resulting &ldquo;in delays and extended wait times for evaluations&rdquo; (Salehi, M. et al., 2025).</p>
+<p>&nbsp;</p>
+<h3>Autism and Gender</h3>
+<p>Historically, people thought of autism as a &ldquo;predominantly male disorder,&rdquo; but recent research &ldquo;increased recognition that women and girls with autism spectrum disorders&rdquo; face multiple barriers by the &ldquo;clinical criteria and processes required to receive a diagnosis&rdquo; (Lockwood Estrin, G. et al., 2021). Autistic females often face underdiagnosis, misdiagnosis, and late diagnosis, potentially due to &ldquo;more nuanced behavioral profiles&rdquo; (Harrop, C. et al., 2024). Some of the key barriers to diagnosis include differences in behavior, social and communication abilities, language, relationships, additional diagnoses, and restricted and repetitive behaviors and interests. (Lockwood Estrin, G. et al., 2021).</p>
+<p>&nbsp;</p>
+<h3>Autism and ADHD Comorbidity</h3>
+<p>In addition to ASD, research shows that one of the most common comorbidities include Attention-Deficit Hyperactivity Disorder (ADHD). ADHD involves &ldquo;severe deficits in attention, hyperactivity, and impulsivity.&rdquo; Both ASD and ADHD top the list of most common disorders among school-aged children, and despite their differences in diagnostic criteria, they also often co-occur. Furthermore, children with co-occurring ASD and ADHD often receive their diagnoses &ldquo;an average of one to three years later than peers with ASD alone,&rdquo; resulting in missed early intervention windows (Justus, S. A. et al., 2025).</p>
+<p>&nbsp;</p>
+<h3>Statistical Analysis in Autism Research</h3>
+<p>To improve the rates of early intervention for people with ASD, researchers must identify gaps between diagnosis, comorbidities, and specific demographics to develop a more comprehensive diagnostic process. To ensure the reliability of research, researchers can use statistical analysis to test hypotheses, assess results, and improve decision-making. This study utilizes descriptive statistics, cross-tabulation analysis, and more to explore the relationships between autism spectrum disorder, ADHD, other comorbidities, and demographics like age and gender.</p>
+<p>&nbsp;</p>
+
+		  
+		  
+		  </div>
+      </details>
+
+      <hr class="divider" />
+      <!-- METHODOLOGY -->
+      <details id="methodology" class="section" open>
+        <summary>Methodology</summary>
+        <div class="content">
+        
+<p>This study employed a quantitative, exploratory, cross-sectional design to analyze patterns in a dataset of children diagnosed with autism, allowing for the examination of associations between diagnostic levels, behavioral traits, communication abilities, and comorbid conditions. The analysis followed a workflow involving data cleaning, transformation, visualization, and interpretation using Python and its ecosystem.</p>
+<p>&nbsp;</p>
+<h3>Data Cleaning and Preparation</h3>
+<p>The dataset originated from a structured questionnaire called &ldquo;Dataset for Autism Diagnosis Based on DSM-5,&rdquo; collected through parent or caregiver responses, located in Nigeria. Participants included children diagnosed with autism spectrum disorder under DSM-5 criteria. Each entry contained demographic, developmental, behavioral, and clinical data (Ibrahim, U. &amp; Sani Adamu, A., 2023).</p>
+<br>
+<p>Initial data handling used the Pandas library, which enabled efficient loading, cleaning, and transformation of the dataset. Column names underwent normalization by removing whitespace, converting to lowercase, and replacing characters for consistent access. Standardization of text data used str.strip(), str.lower(), and str.title(). Unstructured fields (like open-ended behavior descriptions) used keyword search with str.contains() to quantify behavior mentions. Missing values in key variables&mdash;such as diagnosis level, verbal ability, and social communication scores&mdash;prompted filtering to ensure analytical consistency. The dropna() function from Pandas handled these exclusions.</p>
+<br>
+<p>Categorical variables, such as "DSM-5 diagnosis level," received manual ordering using pd.Categorical() to preserve the logical progression from lowest to highest severity, for example: &ldquo;Level 1" to "Level 3,&rdquo; allowing coherent axis sorting across visualizations.</p>
+<p>&nbsp;</p>
+<h3>Exploratory Data Analysis and Visualization</h3>
+<p>The analysis relied on visual techniques to uncover relationships between key variables. Data visualization primarily utilized matplotlib.pyplot, with support from Pandas plotting capabilities. All charts used color schemes that emphasized aesthetic consistency and clarity.</p>
+<br>
+<p>For categorical comparisons like diagnosis level vs. verbal ability, bar plots presented normalized values as percentages. These visualizations followed construction through pd.crosstab(), often combined with normalize='index' or normalize=True to produce row-wise or total percentage distributions. Each bar chart included percentage labels placed above each column using annotations generated with ax.text() in matplotlib. Pie charts, used for overall distribution metrics, applied the plt.pie() function with a fixed starting angle to maintain visual consistency.</p>
+<br>
+<p>Where open-text behavioral descriptions appeared, such as parent-reported unique traits prompting diagnosis, keyword detection techniques helped conduct thematic analysis and quantify common behaviors. The str.contains() method enabled Boolean filtering across these descriptions, specifically searching for terms like "hyperactivity", "inattention", and "stimming".</p>
+<p>&nbsp;</p>
+<h3>Statistical Methods</h3>
+<p>While the research focused primarily on visual and descriptive analysis, several statistical techniques guided interpretation. Cross-tabulations functioned as contingency tables, providing the foundation for comparative group analysis. Frequencies and relative frequencies across diagnostic categories, verbal levels, and social scores clarified how support needs varied across populations. Percentages were computed either within each group (row-wise normalization) or across the whole dataset (global normalization), depending on the research question.</p>
+<br>
+<p>Histograms supported distribution analysis for continuous variables and frequency distributions across continuous or binned values, such as age at diagnosis. The numpy.histogram() function handled binning, while matplotlib enabled percentage-based rendering with uniform bin width. Data labels enhanced interpretability by showing the exact proportion of cases per bin.</p>
+<p>&nbsp;</p>
+<h3>Software and Tools</h3>
+<p>All analysis occurred within the Python programming environment, specifically using Pandas for data wrangling and tabulation, matplotlib.pyplot for visualization, and NumPy for numerical calculations and histogram binning. All plots followed clean, minimalist design conventions. Y-axes used percentage scales when comparisons involved proportionate group sizes, and X-axis labels were ordered logically, for example: yes to sometimes to no, or mild to severe.</p>
+<p>&nbsp;</p>
+
+<h3>Demographics of the Dataset</h3>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 3.1. Gender Distribution of Autism Diagnosis Dataset Participants</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_demographics (1).png"
+         alt="Gender Distribution of Autism Diagnosis Dataset Participants"
+		 style="max-width: 60%">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 3.2. ASD Diagnosis Percentage of Dataset</h5>
+    <p><i>Note.</i> In this dataset, 92.9% of participants received a formal diagnosis of autism spectrum disorder, while 7.1% did not, but received an informal diagnosis of ASD.</p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_demographics (2).png"
+         alt="ASD Diagnosis Percentage of Dataset"
+		 style="max-width: 70%">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 3.3. Distribution of Primary Autism Spectrum Diagnoses in this Dataset</h5>
+    <p><i>Note.</i>Out of 92.9% of participants with a formal diagnosis of autism spectrum disorder, 83.7% received an autism spectrum disorder diagnosis with a level, 3.1% received an Asperger’s diagnosis, 1.0% received a PDD-NOS diagnosis, and 7.1% received an informal diagnosis of ASD. </p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_demographics (3).png"
+         alt="Distribution of Primary Autism Spectrum Diagnoses in this Dataset">
+  </div>
+</figure>
+</div>
+
+<p>&nbsp;</p>
+<h3>Ethical Considerations</h3>
+<p>The dataset did not contain personal identifiers, and all data had undergone anonymization prior to use. The analytical focus remained on aggregate patterns, not individual-level data, which allowed the study to proceed without ethical conflicts related to privacy or consent.</p>
+<p>&nbsp;</p>
+
+		
+		
+		
+      </details>
+	  <hr class="divider" />
+	  
+	  
+      <!-- RESULTS -->
+      <details id="results" class="section" open>
+        <summary>Results</summary>
+        <div class="content">
+
+		  <p>Through systematic analysis using Python&rsquo;s data science libraries&mdash;Pandas for data structuring, Matplotlib for visualization, and NumPy for numerical operations&mdash;the results illustrate how diagnostic severity aligns with verbal development, social deficits, comorbid traits, and demographic context.</p>
+		  <p>&nbsp;</p>
+		  
+		  <h3>Distribution of ASD Diagnosis Levels, Maternal Age, and Symptoms</h3>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.1. Distribution of DSM-5 Autism Diagnosis Levels</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (1).png"
+         alt="Distribution of DSM-5 Autism Diagnosis Levels">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.2. Mother’s Age at Childbirth and Level of Autism Diagnosis</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (2).png"
+         alt="Mother’s Age at Childbirth and Level of Autism Diagnosis">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.3. Verbal Abilities and Autism Diagnosis Levels</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (3).png"
+         alt="Verbal Abilities and Autism Diagnosis Levels">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.4. Social Deficit Levels Across DSM-5 Autism Diagnosis Levels</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (4).png"
+         alt="Social Deficit Levels Across DSM-5 Autism Diagnosis Levels">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.5. Repetitive Behaviors, Echolalia, and Stimming by DSM-5 Autism Diagnosis Level</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (5).png"
+         alt="Repetitive Behaviors, Echolalia, and Stimming by DSM-5 Autism Diagnosis Level">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.6. Sensory Hypo-reactivity by DSM-5 Autism Diagnosis Level</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (6).png"
+         alt="Sensory Hypo-reactivity by DSM-5 Autism Diagnosis Level">
+  </div>
+</figure>
+</div>
+		
+<h3>Gender, Age, and Autism Symptoms</h3>
+		
+<!-- FIGURE -->		  
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.7. Female and Male, Distribution of Ages at Autism Diagnosis</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (7).png"
+         alt="Female and Male, Distribution of Ages at Autism Diagnosis">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.8. Female and Male, Common Behaviors Prompting Autism Diagnosis</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (8).png"
+         alt="Female and Male, Common Behaviors Prompting Autism Diagnosis">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.9. Autism Spectrum Disorder: Social Deficit Levels by Gender</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (9).png"
+         alt="Autism Spectrum Disorder: Social Deficit Levels by Gender">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.10. Autism Spectrum and Repetitive Behaviors, Echolalia, or Stimming by Gender</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (10).png"
+         alt="Autism Spectrum and Repetitive Behaviors, Echolalia, or Stimming by Gender">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.11. Autism Spectrum Disorder: Sensory Hypo-reactivity Severity by Gender</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (11).png"
+         alt="Autism Spectrum Disorder: Sensory Hypo-reactivity Severity by Gender">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.12. Autism Spectrum Disorder: Top Comorbid Diagnoses by Gender</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (12).png"
+         alt="Autism Spectrum Disorder: Top Comorbid Diagnoses by Gender">
+  </div>
+</figure>
+</div>
+
+
+<h3>Gender and Autism Symptoms of Comorbid ASD and ADHD</h3>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.13. Gender Distribution Among Participants with Both Autism and ADHD</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (13).png"
+         alt="Gender Distribution Among Participants with Both Autism and ADHD">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.14. Social Deficit Levels Among Participants with Both Autism and ADHD</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (14).png"
+         alt="Social Deficit Levels Among Participants with Both Autism and ADHD">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.15. Repetitive Behaviors Among Participants with Both Autism and ADHD</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (15).png"
+         alt="Repetitive Behaviors Among Participants with Both Autism and ADHD">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.16. Sensory Hypo-reactivity Levels Among Participants with Both Autism and ADHD</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (16).png"
+         alt="Sensory Hypo-reactivity Levels Among Participants with Both Autism and ADHD">
+  </div>
+</figure>
+</div>		
+
+
+<h3>Autism Symptoms and Learning Disorders</h3>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.17. DSM-5 Diagnosis Levels Among Participants with Both Autism and a Learning Disorder</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (17).png"
+         alt="DSM-5 Diagnosis Levels Among Participants with Both Autism and a Learning Disorder">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.18. Verbal Abilities Among Participants with Both Autism and Learning Disorder</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (18).png"
+         alt="Verbal Abilities Among Participants with Both Autism and Learning Disorder">
+  </div>
+</figure>
+</div>
+
+<!-- FIGURE -->
+<div class="content">       
+<figure class="figure">
+  <div class="fig-desc">
+    <h5>Figure 4.19. Social Deficit Levels Among Participants with Both Autism and a Learning Disorder</h5>
+    <p></p>
+  </div>
+
+  <div class="img-wrap">
+    <img src="images/1_results (19).png"
+         alt="Social Deficit Levels Among Participants with Both Autism and a Learning Disorder">
+  </div>
+</figure>
+</div>
+
+		
+		
+		
+      </details>
+	  
+	  
+      <!-- DISCUSSION -->
+      <details id="discussion" class="section" open>
+        <summary>Discussion</summary>
+        <div class="content">
+          
+		 <h3>Results on ASD Diagnosis Levels and Autism Symptoms</h3>
+<p>The analysis shows a consistent alignment between DSM-5 ASD levels (1: requiring support, 2: requiring substantial support, 3: requiring very substantial support) and symptom severity in verbal communication, social deficits, repetitive behaviors, and sensory hypo-reactivity.</p>
+<p>&nbsp;</p>
+<p>In the sample, 62.1% of participants came from mothers under 35, while 17.3% came from mothers 35 or older. Although previous studies link advanced maternal age with higher autism risk (Myat et al., 2025), this study suggests a weak correlation between maternal age and ASD level, possibly due to skewed maternal age distribution.</p>
+<p>&nbsp;</p>
+<p>Verbal ability strongly correlated with ASD level 3; 68% of level 3 individuals did not speak. Levels 1 and 2 showed wide variation, indicating a weaker correlation. These patterns may reflect the ASD level spread in the dataset.</p>
+<p>&nbsp;</p>
+<p>Social deficits aligned with ASD levels. Among level 1 participants, 90.7% showed mild or moderate deficits. Level 2 participants showed 87.2% moderate or severe, while level 3 showed 80% in those same categories. A large gap exists between levels 1 and 2, with less distinction between levels 2 and 3.</p>
+<p>&nbsp;</p>
+<p>Repetitive behaviors occurred across all levels. Every level 3 participant exhibited them. Among level 2 participants, 78.9% showed repetitive behaviors, compared to 67.7% of level 1 participants. These results suggest stronger ties between repetitive behaviors and ASD diagnosis than between ASD and other symptoms.</p>
+<p>&nbsp;</p>
+<p>Not to confuse with hyper-reactivity, sensory hypo-reactivity refers to an atypical under-reaction to the sensory environment, such as &ldquo;not addressing a loud sound.&rdquo; Sensory hypo-reactivity can &ldquo;interfere with self-care skills&rdquo; and &ldquo;academic progress.&rdquo; The &ldquo;prevalence of sensory symptoms in people with autism spectrum disorder (ASD) ranges from 69% to 93% in children and adults&rdquo; (Savarese, G. et al., 2025). Most participants in the current study experienced sensory hypo-reactivity. Among level 3, 100% showed moderate to severe hypo-reactivity. Levels 2 and 1 showed 69.2% and 56.4% respectively. These patterns align with DSM-5 criteria and current literature.</p>
+<p>&nbsp;</p>
+<p>The most common behaviors prompting an autism spectrum disorder diagnosis include lack of communication, hyperactivity, repetitive behavior, and lack of social interaction. However, this varied among different genders.</p>
+<p>&nbsp;</p>
+<h3>Gender and Autism Results</h3>
+<p>Girls and women often receive delayed or missed psychiatric diagnoses due to more internalized symptoms (Craddock, 2024). By age 4, 87.8% of males and 64.3% of females in the study had an ASD diagnosis. If we consider a diagnosis as late starting by age 12 or later, 3.6% of females and 1.5% of males received late diagnoses, aligning with research on diagnostic delays in females. These findings highlight the need for increased awareness and understanding of autism in females to ensure timely and accurate diagnoses.</p>
+<p>&nbsp;</p>
+<p>The current study reveals that the most common behaviors that prompted parents, guardians, and caregivers to seek assessment for an ASD diagnosis slightly differed between females and males. Nearly half (46.4%) of females exhibited either a lack of communication or hyperactivity, compared to 31.8% of males. In males, 30.4% exhibited repetitive behavior or lack of social interaction, compared to 21.4% of females. These trends may reflect gendered perceptions rather than true behavioral differences.</p>
+<p>&nbsp;</p>
+<p>Past research suggests that &ldquo;females with ASD may be more socially oriented than males and are better at masking their autism symptoms&rdquo; (Zack, D. et al., 2025). In the current study, those with a mild social deficit level included 35.7% of females and 22.1% of males, and those with a moderate to severe social deficit included 64.3% of females and 77.9% of males. Though not statistically significant, these results support prior research suggesting greater social masking in females.</p>
+<p>&nbsp;</p>
+<p>Repetitive behaviors occurred in 86.3% of females and 72.3% of males. Although this study showed that repetitive behavior prompted an ASD diagnosis about 60% more often in males than females, more females exhibited repetitive behavior in general, suggesting gender-based recognition bias despite higher prevalence in females.</p>
+<p>&nbsp;</p>
+<p>Moderate to severe sensory hypo-reactivity occurred in 75% of females and 67.1% of males. Gender differences did not reach statistical significance.</p>
+<p>&nbsp;</p>
+<h3>Autism Comorbidity Results</h3>
+<p>ADHD and learning disorders appeared as the most common comorbidities, with over half of participants with ADHD and over a quarter with a learning disorder, with little difference in prevalence between females and males. Anxiety and learning disorders show stronger links to moderate-severe social deficits. Females were over twice as likely than males to have an anxiety disorder, while males were over twice as likely than females to have epilepsy.</p>
+<p>&nbsp;</p>
+<h3>Autism and ADHD Comorbidity Results</h3>
+<p>Among participants with both autism spectrum disorder and ADHD, 71.7% of females and 74.3% of males showed moderate to severe social deficit levels, 85.7% of females and 75.7% of males exhibited repetitive behaviors, and 64.3% of females and 68.6% of males experienced moderate to severe sensory hypo-reactivity.</p>
+<p>&nbsp;</p>
+<p>Although the ASD and ADHD group consisted of 28.6% females and 71.4% males, the social deficit levels, repetitive behaviors, and sensory hypo-reactivity showed minimal statistical significance between females and males. Gender differences did not show statistical significance, suggesting symptom similarity across genders in comorbid ASD and ADHD, whereas a diagnosis of only autism spectrum disorder sees more gendered variation in symptom profiles.</p>
+<p>&nbsp;</p>
+<h3>Autism and Learning Disorder Comorbidity Results</h3>
+<p>Among those with both ASD and a learning disorder, 25.9% were female and 32.8% male. Diagnosis levels included 39.1% level 1, 47.8% level 2, and 13% level 3. These numbers suggest lower ASD levels more often accompany learning disorders, though inaccessibility to traditional education for level 3 may skew results. Within this group, 71.4% spoke few words or none, indicating a strong correlation between limited verbal ability and ASD-learning disorder comorbidity. Moderate to severe social deficits appeared in 67.9% of this group, similar to the overall ASD population, suggesting no major difference linked to co-occurring learning disorders.</p>
+<p>&nbsp;</p>
+<h3>Implications</h3>
+<p>The current findings strengthen the practical utility of DSM-5 ASD-level classifications in clinical assessment and individualized support planning. Clear patterns between ASD levels and symptom severity&mdash;particularly in verbal ability, social deficits, repetitive behaviors, and sensory hypo-reactivity&mdash;demonstrate how symptom-based stratification supports accurate identification of support needs. These trends highlight the importance of comprehensive behavioral evaluations in early childhood and reinforce the need for diagnostic tools that capture symptom nuance rather than relying solely on age or stereotypical traits.</p>
+<p>&nbsp;</p>
+<p>The analysis reveals multiple implications regarding ASD symptom patterns, maternal age, and gender differences. Symptom alignment across DSM-5 ASD levels shows consistency for social deficits and sensory hypo-reactivity, especially at level 3, while verbal ability and repetitive behaviors vary more widely at levels 1 and 2. While prior studies connect advanced maternal age with autism prevalence, this study found minimal linkage between maternal age and ASD severity. This discrepancy may stem from sample distribution, but it also raises questions about maternal age's role in outcome prediction. Gender discrepancies in diagnosis timing and symptom expression emphasize ongoing gaps in early identification for females, particularly due to differences in observed versus actual behaviors as well as gendered diagnostic bias. Higher rates of repetitive behaviors among females challenge traditional diagnostic biases that overlook subtle presentations. Comorbidity analysis shows strong overlap in symptom profiles among those with both ASD and ADHD, regardless of gender, while individuals with both ASD and learning disorders exhibit lower verbal communication, suggesting that communication challenges may increase with cognitive comorbidities. Together, these findings support the need for more tailored diagnostic tools that account for gender, communication profiles, and the interaction of co-occurring conditions.</p>
+<p>&nbsp;</p>
+<h3>Limitations</h3>
+<p>The study used a dataset with a sample size of 99 participants, which may not provide enough statistical power to detect a moderation effect. The study focused on exploratory data analysis and descriptive patterns, rather than inferential statistics. Future work may use a larger sample and incorporate inferential statistical methods to assess potential confounds. In addition, reliance on parent-reported data may introduce bias based on recall, interpretation, or access to diagnostic services. Still, the depth of open-ended responses and the detailed categorization of developmental characteristics provided a valuable foundation for exploratory analysis.</p>
+<p>&nbsp;</p>
+		 
+		 
+		</div>
+      </details>
+      <hr class="divider" />
+	  
+	  
+      <!-- CONCLUSION -->
+      <details id="conclusion" class="section" open>
+        <summary>Conclusion</summary>
+        <div class="content">
+        
+<p>This study highlights clear patterns between DSM-5 ASD levels and core autism symptoms, with social deficits, verbal ability, repetitive behaviors, and sensory hypo-reactivity showing varying degrees of correlation. Repetitive behaviors and sensory hypo-reactivity appeared most consistently across diagnosis levels, while verbal ability varied more in individuals with level 1 or 2 ASD.</p>
+<p>&nbsp;</p>
+<p>Gender differences emerged in diagnostic timing, symptom presentation, and comorbidity profiles. Females experienced more delayed diagnoses and exhibited higher rates of anxiety disorders, while males were more likely to receive earlier diagnoses and experience epilepsy. Despite these differences, the expression of symptoms in individuals with co-occurring ASD and ADHD showed minimal gender variance.</p>
+<p>&nbsp;</p>
+<p>Participants with both ASD and learning disorders showed reduced verbal ability and lower ASD severity overall, though severe cases may have lacked access to assessment and education, skewing results.</p>
+<p>&nbsp;</p>
+<p>Together, these findings underscore the complexity of autism spectrum disorder and the need for nuanced diagnostic approaches that account for gender, co-occurring conditions, and diverse symptom profiles.</p>
+<p>&nbsp;</p>
+
+		
+		</div>
+      </details>
+	  
+	  
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <h2 class="section-title">References</h2>
+        <div class="references" id="refs-container">
+          <ol id="refs-list">
+<li>Atherton, G., Edisbury, E., Piovesan, A., et al. Autism Through the Ages: A Mixed Methods Approach to Understanding How Age and Age of Diagnosis Affect Quality of Life. J Autism Dev Disord 52, 3639–3654 (2022). https://doi.org/10.1007/s10803-021-05235-x</li>
+<li>Cagiano, R., Mancini, A., Berni, M., Maccarrone, F., Arena, B., Cosenza, A., Pecini, C., Igliozzi, R., Calderoni, S., & Tancredi, R. (2025). Psychiatric Comorbidities in Autistic Adolescents Without Intellectual Impairment: A Focus on Parent- and Self-Reported Psychopathological Assessment. Brain Sciences, 15(2), 187. https://doi.org/10.3390/brainsci15020187</li>
+<li>Cleary, M., West, S., Kornhaber, R., & Hungerford, C. (2023). Autism, discrimination and masking: Disrupting a recipe for trauma. Issues in Mental Health Nursing, 44(9), 799–808. https://doi.org/10.1080/01612840.2023.2239916</li>
+<li>Craddock E. (2024) Being a Woman Is 100% Significant to My Experiences of Attention Deficit Hyperactivity Disorder and Autism: Exploring the Gendered Implications of an Adulthood Combined Autism and Attention Deficit Hyperactivity Disorder Diagnosis. Qualitative Health Research. 2024;34(14):1442-1455. https://doi.org/10.1177/10497323241253412</li>
+ 
+ <!-- Additional references hidden -->
+ 
+<li>Cruz, S., Zubizarreta, S.CP., Costa, A.D. et al. Is There a Bias Towards Males in the Diagnosis of Autism? A Systematic Review and Meta-Analysis. Neuropsychol Rev 35, 153–176 (2025). https://doi.org/10.1007/s11065-023-09630-2</li>
+<li>Daniolou, S., Pandis, N., & Znoj, H. (2022). The Efficacy of Early Interventions for Children with Autism Spectrum Disorders: A Systematic Review and Meta-Analysis. Journal of Clinical Medicine, 11(17), 5100. https://doi.org/10.3390/jcm11175100</li>
+<li>Dell’Osso, L., & Carpita, B. (2022). What misdiagnoses do women with autism spectrum disorder receive in the DSM-5? CNS Spectrums, 28(3), 269–270. https://doi.org/10.1017/s1092852922000037</li>
+<li>D’Mello, A. M., Frosch, I. R., Li, C. E., Cardinaux, A. L., & Gabrieli, J. D. E. (2022). Exclusion of females in autism research: Empirical evidence for a “leaky” recruitment‐to‐Research Pipeline. Autism Research, 15(10), 1929–1940. https://doi.org/10.1002/aur.2795</li>
+<li>Elias, R., & Lord, C. (2021). Diagnostic stability in individuals with autism spectrum disorder: Insights from a longitudinal follow‐up study. Journal of Child Psychology and Psychiatry, 63(9), 973–983. https://doi.org/10.1111/jcpp.13551</li>
+<li>French, B., Daley, D., Groom, M., & Cassidy, S. (2023). Risks associated with undiagnosed ADHD and/or autism: A mixed-method systematic review. Journal of Attention Disorders, 27(12), 1393–1410. https://doi.org/10.1177/10870547231176862</li>
+<li>Fusar-Poli, L., Brondino, N., Politi, P. et al. Missed diagnoses and misdiagnoses of adults with autism spectrum disorder. Eur Arch Psychiatry Clin Neurosci 272, 187–198 (2022). https://doi.org/10.1007/s00406-020-01189-w</li>
+<li>Gesi, C., Migliarese, G., Torriero, S., Capellazzi, M., Omboni, A. C., Cerveri, G., & Mencacci, C. (2021). Gender Differences in Misdiagnosis and Delayed Diagnosis among Adults with Autism Spectrum Disorder with No Language or Intellectual Disability. Brain Sciences, 11(7), 912. https://doi.org/10.3390/brainsci11070912</li>
+<li>Harrop, C., Tomaszewski, B., Putnam, O., Klein, C., Lamarche, E., & Klinger, L. (2024). Are the diagnostic rates of autistic females increasing? an examination of state‐wide trends. Journal of Child Psychology and Psychiatry, 65(7), 973–983. https://doi.org/10.1111/jcpp.13939</li>
+<li>Hatch, B., Kadlaskar, G., & Miller, M. (2023). Diagnosis and treatment of children and adolescents with autism and ADHD. Psychology in the Schools, 60, 295–311. https://doi.org/10.1002/pits.22808</li>
+<li>Ibrahim, Umar A; Sani Adamu, Amina (2023), “Dataset for Autism Diagnosis Based on DSM-5”, Mendeley Data, V2, https://doi.org/10.17632/749k3cwbnm.2</li>
+<li>Justus, S. A., Pogue, E. M., & Simanovich, V. (2025). Pre-K–12 Teachers’ Views on ASD+ADHD: Prevalence Estimates and Teaching Preparedness. Children, 12(3), 342. https://doi.org/10.3390/children12030342</li>
+<li>Kauley, N., John, J. R., Barr, K. R., Wu, W. T., Grove, R., Masi, A., & Eapen, V. (2024). Predicting Communication Skills Outcomes for Preschool Children with Autism Spectrum Disorder Following Early Intervention. Neuropsychiatric Disease and Treatment, 20, 35–48. https://doi.org/10.2147/NDT.S435740</li>
+<li>Kentrou, V., Livingston, L. A., Grove, R., Hoekstra, R. A., & Begeer, S. (2024). Perceived misdiagnosis of psychiatric conditions in autistic adults. eClinicalMedicine, 71, 102586. https://doi.org/10.1016/j.eclinm.2024.102586</li>
+<li>Kriegel, G., Paul, S., Leonard, K.H. et al. Prevalence of Autism Spectrum Disorder (ASD) in Inpatient Adolescent Psychiatric Population. J Autism Dev Disord 55, 1138–1145 (2025). https://doi.org/10.1007/s10803-023-05923-w</li>
+<li>Liu, A., Lu, Y., Gong, C., Sun, J., Wang, B., & Jiang, Z. (2023). Bibliometric Analysis of Research Themes and Trends of the Co-Occurrence of Autism and ADHD. Neuropsychiatric Disease and Treatment, 19, 985–1002. https://doi.org/10.2147/NDT.S404801</li>
+<li>Lobregt-van Buuren, E., Hoekert, M., & Sizoo, B. (2021). Autism, Adverse Events, and Trauma. Autism Spectrum Disorders, 33–42. https://doi.org/10.36255/exonpublications.autismspectrumdisorders.2021.trauma</li>
+<li>Lockwood Estrin, G., Milner, V., Spain, D. et al. Barriers to Autism Spectrum Disorder Diagnosis for Young Women and Girls: a Systematic Review. Rev J Autism Dev Disord 8, 454–470 (2021). https://doi.org/10.1007/s40489-020-00225-8</li>
+<li>Lupindo, B.M., Maw, A. & Shabalala, N. Late diagnosis of autism: exploring experiences of males diagnosed with autism in adulthood. Curr Psychol 42, 24181–24197 (2023). https://doi.org/10.1007/s12144-022-03514-z</li>
+<li>Mailick, M., Bennett, T., DaWalt, L.S., Durkin, M.S., Forbes, G., Howlin, P., Lord, C., Zaidman-Zait, A., Zwaigenbaum, L., Bal, V., Bishop, S., Chiang, C.-H., DiMartino, A., Freitag, C.M., Georgiades, S., Hollocks, M., Lai, M.-C., Maenner, M.J., Powell, P.S., Taylor, J.L. and Halladay, A. (2025), Expanding Research on Contextual Factors in Autism Research: What Took Us So Long?. Autism Research. https://doi.org/10.1002/aur.3312</li>
+<li>Myat, P., John, J. R., Montgomery, A., & Eapen, V. (2025). Sociocultural and perinatal health factors associated with autism spectrum disorder (ASD) in children. Comprehensive Psychiatry, 138(152576). https://doi.org/10.1016/j.comppsych.2025.152576</li>
+<li>Ng-Cordell, E., Wardell, V., Stewardson, C. et al. Anxiety and Trauma-Related Disorders in Children on the Autism Spectrum. Curr Psychiatry Rep 24, 171–180 (2022). https://doi.org/10.1007/s11920-022-01331-6</li>
+<li>Okoye, C., Obialo-Ibeawuchi, C. M., Obajeun, O., Sarwar, S., Tawfik, C., Waleed, M. S., Wasim, A. U., Mohamoud, I., Afolayan, A. Y., & Mbaezue, R. (2023). Early diagnosis of autism spectrum disorder: A review and analysis of the risks and benefits. Cureus. https://doi.org/10.7759/cureus.43226</li>
+<li>Overton, G.L., Marsà-Sambola, F., Martin, R. et al. Understanding the Self-identification of Autism in Adults: a Scoping Review. Rev J Autism Dev Disord 11, 682–702 (2024). https://doi.org/10.1007/s40489-023-00361-x</li>
+<li>Raskin, Jonathan & Maynard, Doug & Gayle, Michael. (2022). Psychologist Attitudes Toward DSM-5 and Its Alternatives. Professional Psychology: Research and Practice. 53. https://doi.org/10.1037/pro0000480</li>
+<li>Reuben, K. E., Stanzione, C. M., & Singleton, J. L. (2021). Interpersonal trauma and posttraumatic stress in autistic adults. Autism in Adulthood, 3(3), 247–256. https://doi.org/10.1089/aut.2020.0073</li>
+<li>Rosen, N.E., Lord, C. & Volkmar, F.R. The Diagnosis of Autism: From Kanner to DSM-III to DSM-5 and Beyond. J Autism Dev Disord 51, 4253–4270 (2021). https://doi.org/10.1007/s10803-021-04904-1</li>
+<li>Rødgaard, E., Jensen, K., Miskowiak, K. W., & Mottron, L. (2021). Autism comorbidities show elevated female‐to‐male odds ratios and are associated with the age of First Autism Diagnosis. Acta Psychiatrica Scandinavica, 144(5), 475–486. https://doi.org/10.1111/acps.13345</li>
+<li>Salehi, M., Jaka, S., Lotfi, A., Ahmad, A., Saeidi, M., & Gunturu, S. (2025). Prevalence, socio-demographic characteristics, and co-morbidities of autism spectrum disorder in US children: Insights from the 2020–2021 National Survey of Children’s Health. Children, 12(3), 297. https://doi.org/10.3390/children12030297</li>
+<li>Sarrett, J.C. Biocertification and Neurodiversity: the Role and Implications of Self-Diagnosis in Autistic Communities. Neuroethics 9, 23–36 (2016). https://doi.org/10.1007/s12152-016-9247-x</li>
+<li>Savarese, G., Mandia, R., Diavoletto, A., Piscitelli, M., Impemba, F., Di Siervi, A., Carpinelli, L., Bottiglieri, F., Sessa, M., & Corrivetti, G. (2025). Preliminary Results of Sensorimotor Room Training for the Improvement of Sensory and Motor Skills in Children with Autism Spectrum Disorders. Pediatric Reports, 17(1), 4. https://doi.org/10.3390/pediatric17010004</li>
+<li>Smith, J. V., McQuaid, G. A., Wallace, G. L., Neuhaus, E., Lopez, A., Ratto, A. B., Jack, A., Khuu, A., Webb, S. J., Verbalis, A., Pelphrey, K. A., & Kenworthy, L. (2024). Time is of the essence: Age at autism diagnosis, sex assigned at birth, and psychopathology. Autism, 28(11), 2909-2922. https://doi.org/10.1177/13623613241249878</li>
+<li>Waldren, L. H., Leung, F. Y. N., Hargitai, L. D., Burgoyne, A. P., Liceralde, V. R., Livingston, L. A., & Shah, P. (2024). Unpacking the overlap between autism and ADHD in adults: A multi-method approach. Cortex, 173, 120–137. https://doi.org/10.1016/j.cortex.2023.12.016</li>
+<li>Zack, D. S., Carroll, B., Magallanes, A., & Bordes Edgar, V. (2025). Take a Closer Look: Considerations for Autism Spectrum Disorder Assessment in Female Children and Adolescents Author links open overlay panel. Journal of Pediatric Health Care, 39(1), 107–111. https://doi.org/10.1016/j.pedhc.2024.07.008</li>
+           
+          </ol>
+        </div>
+		
+      </section>
+    </main>
   </div>
 
 
-  </header>
 
-
-
-  
-
-
-
-  <!-- Research boxes -->
-
-  <section class="section" id="research">
-    <div class="research-item">
-      <div class="research-text">
-        <h2>The Gendered Neurodiversity Gap:</h2>
-
-		<h3>A Data Analysis Exploring the Relationships Between Autism, ADHD, and Gender</h3>
-        <p>Gender-based analysis revealed a greater prevalence of diagnostic delays and internalized symptoms among women and girls.
-		<br><br>
-		These results emphasize the need for gender-based diagnostic sensitivity and awareness of co-occurring conditions in autism spectrum disorder assessment.
-		</p>
-        <a href="research1.html" class="button">Click to Read</a>
-      </div>
-      <div class="research-image">
-	  <figure>
-        <img src="images/research1.jpg" alt="Research 1">
-		</figure>
-      </div>
-    </div>
-    <div class="research-item">
-      <div class="research-text">
-        <h2>Unveiling Female ADHD:</h2>
-		
-		<h3>Early Mental Health Challenges and Diagnosis Delays in University Students</h3>
-        <p>​Millions of people in the U.S. live with a diagnosis of attention-deficit hyperactivity disorder (ADHD).
-		<br><br>
-		Results indicate that most students with ADHD experienced depression and anxiety before university, but formal diagnoses often occurred years later.
-		</p>
-        <a href="research2.html" class="button">Click to Read</a>
-      </div>
-      <div class="research-image">
-	  <figure>
-        <img src="images/research2.jpg" alt="Research 2">
-		</figure>
-      </div>
-    </div>
-    <div class="research-item">
-      <div class="research-text">
-        <h2>Love at First Game:</h2>
-		
-		<h3>How Interest in Gaming Shifts Between Genders Over the Years</h3>
-        <p>Data analysis reveals that both males and females exhibit high gaming interest in their late teens and early twenties. 
-		<br><br> However, males maintain a higher interest in gaming until their mid-thirties, whereas females show a sharper decline, possibly due to societal and personal factors. </p>
-        <a href="research3.html" class="button">Click to Read</a>
-      </div>
-      <div class="research-image">
-	  <figure>
-        <img src="images/research3.jpg" alt="Research 3">
-		</figure>
-      </div>
-    </div>
-  </section>
 
   <footer>
     <div class="social-icons">
@@ -736,99 +1198,11 @@ display: none;
     <a href="#top" class="scroll-top-btn" onclick="scrollToTop(event)">&#9650;</a>
   </footer>
 
-  <script>
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    window.onbeforeunload = () => window.scrollTo(0, 0);
 
-    document.addEventListener('mousemove', e => {
-      document.body.style.setProperty('--x', `${e.clientX}px`);
-      document.body.style.setProperty('--y', `${e.clientY}px`);
-    });
 
-    function scrollToTop(e) {
-      e.preventDefault();
-      window.scrollTo({ top: 1, behavior: 'smooth' });
-    }
+  
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.research-item').forEach(item => observer.observe(item));
-  </script>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const figures = document.querySelectorAll('.research-image figure');
-
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.2,          // fire when 20% visible
-    rootMargin: '0px 0px -10% 0px'
-  });
-
-  figures.forEach(fig => io.observe(fig));
-});
-</script>
-<script>
-// number of fireflies
-const quantity = 15;
-
-// helper to inject a <style> with custom keyframes/nth-child rules
-function injectFireflyStyles(q) {
-  let css = '';
-  for (let i = 1; i <= q; i++) {
-    const steps = Math.floor(Math.random() * 12) + 16;
-    const rotDur = (Math.random() * 10 + 8).toFixed(2) + 's';
-    const flashDur = Math.random() * 6000 + 5000;
-    const flashDelay = Math.random() * 8000 + 500;
-    
-    css += `
-.firefly:nth-child(${i}) {
-  animation-name: move${i};
-}
-.firefly:nth-child(${i})::before {
-  animation-duration: ${rotDur};
-}
-.firefly:nth-child(${i})::after {
-  animation-duration: ${rotDur}, ${flashDur.toFixed(0)}ms;
-  animation-delay: 0ms, ${flashDelay.toFixed(0)}ms;
-}
-@keyframes move${i} {
-`;
-    for (let step = 0; step <= steps; step++) {
-      const pct = (step * (100 / steps)).toFixed(2) + '%';
-      const tx = (Math.random() * 100 - 50).toFixed(2) + 'vw';
-      const ty = (Math.random() * 100 - 50).toFixed(2) + 'vh';
-      const scale = (Math.random() * 0.75 + 0.25).toFixed(2);
-      css += `  ${pct} { transform: translateX(${tx}) translateY(${ty}) scale(${scale}); }\n`;
-    }
-    css += `}\n`;
-  }
-  const style = document.createElement('style');
-  style.textContent = css;
-  document.head.appendChild(style);
-}
-
-// create the fireflies
-for (let i = 1; i <= quantity; i++) {
-  const f = document.createElement('div');
-  f.classList.add('firefly');
-  document.body.appendChild(f);
-}
-
-// now inject the per-firefly motion
-injectFireflyStyles(quantity);
-</script>
 
 </body>
 </html>
