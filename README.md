@@ -32,6 +32,8 @@ Welcome to my personal portfolio website repository! This site reflects my love 
 - **CSS3** for: custom properties and animations.  
 - **JavaScript** for: effects and keyframes on background and scroll.
 
+- Resources: [CodePen](https://codepen.io/), [FreeFrontend](https://freefrontend.com/)
+
 - **Google Fonts**:
   - [`Playfair Display:700`](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700)
   - [`Raleway:300`](https://fonts.googleapis.com/css2?family=Raleway:wght@300)
