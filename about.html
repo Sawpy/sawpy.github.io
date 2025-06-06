@@ -114,7 +114,6 @@
       cursor: pointer;
       text-decoration: none;
 	  text-shadow: none;
-	  text-stroke: none; 
       position: relative;
       display: inline-block;
     }
@@ -130,7 +129,6 @@
       color: var(--body);
       font-size: 1rem;
 	  text-shadow: none;
-	  text-stroke: none; 
       display: inline-block;
     }
     .nav-links a:hover { color: var(--accent2); transform: scale(1.08); }
@@ -231,12 +229,13 @@
 
     /* Polaroid-style gallery */
     .photo-gallery {
-      display: flex;\n      
-	  flex-wrap: wrap;
-	  justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.3rem;
       padding: 4rem 1rem;
     }
+
     .photo-gallery .gallery-img {
       width: 100%;
 	  max-width: 240px;
@@ -414,9 +413,6 @@ display: none;
   }
 }
 
-
-
-	
 
     @keyframes fadeInUp   { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
