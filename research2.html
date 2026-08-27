@@ -72,8 +72,7 @@
   // NAVIGATION, SCROLLING, AND MOUSE TRACKING //  
   
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    window.onbeforeunload = () => window.scrollTo(0, 0);
-
+	
     document.addEventListener('mousemove', e => {
       document.body.style.setProperty('--x', `${e.clientX}px`);
       document.body.style.setProperty('--y', `${e.clientY}px`);
